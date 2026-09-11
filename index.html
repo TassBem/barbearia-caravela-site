@@ -581,7 +581,7 @@
 
   /* ---------- admin ---------- */
   #admin-view{ min-height:100vh; }
-  .admin-shell{ max-width:900px; margin:0 auto; padding:0 clamp(1.25rem,4vw,2.5rem) 4rem; }
+  .admin-shell{ max-width:1100px; margin:0 auto; padding:0 clamp(1.25rem,4vw,2.5rem) 4rem; }
   .admin-header{ display:flex; align-items:center; justify-content:space-between; padding:1.5rem 0; border-bottom:1px solid rgba(179,145,92,0.22); margin-bottom:2rem; }
   .admin-header .wordmark small{ display:block; font-family:'EB Garamond',serif; font-style:italic; font-weight:400; font-size:0.65rem; letter-spacing:0.18em; color:var(--brass); text-transform:uppercase; margin-top:0.15rem; }
   .admin-banner{ background:rgba(124,36,48,0.15); border:1px solid var(--bordo); border-radius:6px; padding:0.9rem 1.2rem; margin-bottom:1.5rem; font-size:0.92rem; color:var(--parchment); }
@@ -595,11 +595,54 @@
   .barber-tab:hover{ border-color:var(--brass); }
   .barber-tab.active{ border-color:var(--bordo); background:rgba(124,36,48,0.18); }
   .admin-toolbar{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin:2rem 0 1.5rem; }
-  .month-nav{ display:flex; align-items:center; gap:1rem; }
-  .month-nav h3{ font-family:'Cinzel',serif; font-size:1.05rem; letter-spacing:0.06em; min-width:11ch; text-align:center; margin:0; }
+  .day-nav{ display:flex; align-items:center; gap:1rem; }
+  .day-nav h3{ font-family:'Cinzel',serif; font-size:1.05rem; letter-spacing:0.02em; min-width:13ch; text-align:center; margin:0; }
   .admin-toolbar-actions{ display:flex; gap:0.6rem; flex-wrap:wrap; }
   .day-group{ margin-bottom:1.75rem; }
   .day-group h4{ font-family:'Cinzel',serif; font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--brass); margin:0 0 0.75rem; padding-bottom:0.5rem; border-bottom:1px solid rgba(179,145,92,0.2); }
+
+  /* ---------- grelha do dia (todos os barbeiros lado a lado) ---------- */
+  .admin-grid-scroll{ overflow-x:auto; padding-bottom:0.5rem; }
+  .admin-grid{ display:grid; gap:1px; background:var(--border-subtle); border:1px solid var(--border-subtle); border-radius:8px; overflow:hidden; }
+  .grid-cnr{ background:var(--ink-2); }
+  .grid-head{
+    background:var(--ink-2); padding:0.75rem 0.5rem; display:flex; flex-direction:column; align-items:center; gap:0.4rem;
+    position:sticky; top:0; z-index:2;
+  }
+  .grid-head img{ width:2.25rem; height:2.25rem; border-radius:50%; object-fit:cover; border:1px solid var(--border-strong); }
+  .grid-head-initials{
+    width:2.25rem; height:2.25rem; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    background:var(--ink-3); border:1px solid var(--border-strong); font-family:'Cinzel',serif; font-size:0.75rem; color:var(--brass);
+  }
+  .grid-head-name{ font-family:'Cinzel',serif; font-size:0.78rem; letter-spacing:0.02em; text-align:center; }
+  .grid-time{
+    background:var(--ink-2); color:var(--parchment-dim); font-size:0.78rem; font-variant-numeric:tabular-nums;
+    display:flex; align-items:center; justify-content:center; padding:0.4rem;
+  }
+  .grid-cell{ background:var(--ink-3); min-height:3.25rem; display:flex; flex-direction:column; justify-content:center; gap:2px; padding:2px; }
+  .grid-entry{ padding:0.3rem 0.5rem; border-radius:3px; display:flex; flex-direction:column; justify-content:center; gap:0.1rem; flex:1; }
+  .grid-entry.booked{ cursor:pointer; transition:filter .15s ease; }
+  .grid-entry.booked:hover{ filter:brightness(1.15); }
+  .grid-cell-name{ font-size:0.82rem; color:var(--ink); font-weight:600; line-height:1.2; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .grid-cell-svc{ font-size:0.7rem; color:rgba(13,11,9,0.65); line-height:1.2; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .grid-cell.has-many .grid-cell-name, .grid-cell.has-many .grid-cell-svc{ font-size:0.68rem; }
+  .grid-entry.is-done{ opacity:0.55; }
+  .grid-entry.is-done .grid-cell-name{ text-decoration:line-through; }
+  .grid-cell.blocked{
+    background:repeating-linear-gradient(135deg, var(--ink-2), var(--ink-2) 6px, var(--ink-3) 6px, var(--ink-3) 12px);
+    color:var(--parchment-dim); font-size:0.7rem; letter-spacing:0.06em; text-transform:uppercase;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+  }
+  /* uma cor por categoria de serviço (a ordem dos grupos em CONTENT.serviceGroups) */
+  .svc-color-0{ background:#e8d9c3; }
+  .svc-color-1{ background:#d9c2c8; }
+  .svc-color-2{ background:#c3d3d9; }
+  .svc-color-3{ background:#d4d0e8; }
+  .svc-color-x{ background:var(--parchment-dim); }
+  @media (max-width:640px){
+    .admin-grid{ font-size:0.9rem; }
+    .grid-head-name{ display:none; }
+  }
   .booking-row{
     display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
     background:var(--ink-2); border:1px solid rgba(179,145,92,0.2); border-radius:6px;
@@ -930,14 +973,15 @@
 
     <div id="admin-dashboard" hidden>
       <div class="admin-toolbar">
-        <div class="month-nav">
-          <button class="icon-btn" id="admin-prev" type="button" aria-label="Mês anterior">
+        <div class="day-nav">
+          <button class="icon-btn" id="admin-prev" type="button" aria-label="Dia anterior">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
-          <h3 id="admin-month-label">&nbsp;</h3>
-          <button class="icon-btn" id="admin-next" type="button" aria-label="Mês seguinte">
+          <h3 id="admin-day-label">&nbsp;</h3>
+          <button class="icon-btn" id="admin-next" type="button" aria-label="Dia seguinte">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
           </button>
+          <button class="btn btn-ghost btn-sm" type="button" id="admin-today-btn">Hoje</button>
         </div>
         <div class="admin-toolbar-actions">
           <button class="btn btn-ghost btn-sm" type="button" id="admin-timeoff-btn">Gerir Folgas</button>
@@ -947,8 +991,7 @@
       </div>
 
       <div id="admin-unassigned"></div>
-      <div id="admin-timeoff-list"></div>
-      <div id="admin-bookings"></div>
+      <div class="admin-grid-scroll"><div id="admin-grid"></div></div>
     </div>
   </div>
 </div>
@@ -1500,7 +1543,7 @@
      um aviso extra, nunca bloqueia a marcação em si. */
   var EMAILJS_PUBLIC_KEY = '7xobjjPkSObhxM40I';
   var EMAILJS_SERVICE_ID = 'service_melhxmn';
-  var EMAILJS_TEMPLATE_ID = '';  // Email Templates > o template criado para isto (falta)
+  var EMAILJS_TEMPLATE_ID = 'template_29s3yk9';
   if (window.emailjs && EMAILJS_PUBLIC_KEY) window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
   // O template no EmailJS deve usar estas variáveis: {{service}} {{barber}}
@@ -1815,7 +1858,7 @@
   /* ================= admin ================= */
   var ADMIN_BARBERS = BARBERS.filter(function(b){ return b.id !== ''; })
     .concat([{ id:'demo', name:'Conta de Teste', initials:'DT', phone: DEMO_ADMIN_PHONE, photo:'' }]);
-  var adminState = { barberId: null, viewYear: today0.getFullYear(), viewMonth: today0.getMonth() };
+  var adminState = { barberId: null, viewDate: isoDate(today0.getFullYear(), today0.getMonth(), today0.getDate()) };
   var adminEventsBound = false;
   var adminAuthState = { step: 'phone', phone: '', barber: null };
 
@@ -1923,76 +1966,134 @@
 
   function showAdminDashboard(){
     document.getElementById('admin-dashboard').hidden = false;
-    renderAdminMonth();
+    renderAdminDay();
   }
 
   function bindAdminEvents(){
     document.getElementById('admin-prev').addEventListener('click', function(){
-      adminState.viewMonth -= 1;
-      if (adminState.viewMonth < 0) { adminState.viewMonth = 11; adminState.viewYear -= 1; }
-      renderAdminMonth();
+      adminState.viewDate = shiftIsoDate(adminState.viewDate, -1);
+      renderAdminDay();
     });
     document.getElementById('admin-next').addEventListener('click', function(){
-      adminState.viewMonth += 1;
-      if (adminState.viewMonth > 11) { adminState.viewMonth = 0; adminState.viewYear += 1; }
-      renderAdminMonth();
+      adminState.viewDate = shiftIsoDate(adminState.viewDate, 1);
+      renderAdminDay();
+    });
+    document.getElementById('admin-today-btn').addEventListener('click', function(){
+      adminState.viewDate = isoDate(today0.getFullYear(), today0.getMonth(), today0.getDate());
+      renderAdminDay();
     });
     document.getElementById('admin-add-btn').addEventListener('click', openAddBookingModal);
     document.getElementById('admin-lookup-btn').addEventListener('click', openLookupModal);
     document.getElementById('admin-timeoff-btn').addEventListener('click', openTimeOffModal);
   }
 
-  function renderAdminMonth(){
-    document.getElementById('admin-month-label').textContent = MONTHS_PT[adminState.viewMonth] + ' ' + adminState.viewYear;
-    var y = adminState.viewYear, m = adminState.viewMonth;
-    var monthBookings = AppState.bookings.filter(function(b){
-      var d = b.date.split('-');
-      return Number(d[0]) === y && (Number(d[1]) - 1) === m;
-    }).sort(function(a,b){ return (a.date + a.time).localeCompare(b.date + b.time); });
+  function shiftIsoDate(iso, days){
+    var p = iso.split('-').map(Number);
+    var d = new Date(p[0], p[1] - 1, p[2] + days);
+    return isoDate(d.getFullYear(), d.getMonth(), d.getDate());
+  }
 
-    var mine = monthBookings.filter(function(b){ return b.barberId === adminState.barberId; });
-    var unassigned = monthBookings.filter(function(b){ return !b.barberId; });
+  // Cor por categoria de serviço (o grupo em CONTENT.serviceGroups a que o
+  // serviço pertence), para os blocos da grelha se distinguirem à distância.
+  function serviceColorClass(serviceId){
+    var idx = -1;
+    CONTENT.serviceGroups.forEach(function(g, gi){
+      g.items.forEach(function(it){ if (it.id === serviceId) idx = gi; });
+    });
+    return 'svc-color-' + (idx === -1 ? 'x' : idx);
+  }
+
+  // Grelha do dia: uma coluna por barbeiro, uma linha por horário, para
+  // qualquer barbeiro logado ver a agenda de todos de relance (não só a sua).
+  function renderAdminDay(){
+    var dayIso = adminState.viewDate;
+    var todayIso = isoDate(today0.getFullYear(), today0.getMonth(), today0.getDate());
+    var label = fmtDateLabel(dayIso) + (dayIso === todayIso ? ' · Hoje' : '');
+    document.getElementById('admin-day-label').textContent = label;
+
+    var dayBookings = AppState.bookings.filter(function(b){ return b.date === dayIso && b.status !== 'cancelado'; })
+      .sort(function(a,b){ return a.time.localeCompare(b.time); });
+    var unassigned = dayBookings.filter(function(b){ return !b.barberId; });
 
     var unassignedWrap = document.getElementById('admin-unassigned');
     unassignedWrap.innerHTML = unassigned.length
       ? '<div class="day-group"><h4>Por Atribuir</h4>' + unassigned.map(function(b){ return bookingRowHtml(b, true); }).join('') + '</div>'
       : '';
-
-    var myTimeOff = (AppState.timeOff[adminState.barberId] || []).filter(function(t){
-      var d = t.date.split('-');
-      return Number(d[0]) === y && (Number(d[1]) - 1) === m;
-    }).sort(function(a,b){ return a.date.localeCompare(b.date); });
-    var timeOffWrap = document.getElementById('admin-timeoff-list');
-    timeOffWrap.innerHTML = myTimeOff.length
-      ? '<div class="day-group"><h4>As Tuas Folgas e Horários Bloqueados Este Mês</h4>' + myTimeOff.map(function(t){
-          var label = fmtDateLabel(t.date) + (t.time ? ' · ' + t.time : ' · Dia inteiro');
-          return '<div class="booking-row">' +
-            '<span class="bk-main"><span class="bk-client">' + label + '</span></span>' +
-            '<span class="bk-actions"><button type="button" class="danger" data-remove-timeoff="' + t.id + '">Remover</button></span>' +
-          '</div>';
-        }).join('') + '</div>'
-      : '';
-    timeOffWrap.querySelectorAll('[data-remove-timeoff]').forEach(function(el){
-      el.addEventListener('click', function(){ removeTimeOff(el.getAttribute('data-remove-timeoff')); });
-    });
-
-    var bookingsWrap = document.getElementById('admin-bookings');
-    if (!mine.length) {
-      bookingsWrap.innerHTML = '<p class="empty-state">Sem marcações neste mês.</p>';
-    } else {
-      var byDay = {};
-      mine.forEach(function(b){ (byDay[b.date] = byDay[b.date] || []).push(b); });
-      var days = Object.keys(byDay).sort();
-      bookingsWrap.innerHTML = days.map(function(day){
-        return '<div class="day-group"><h4>' + fmtDateLabel(day) + '</h4>' +
-          byDay[day].map(function(b){ return bookingRowHtml(b, false); }).join('') + '</div>';
-      }).join('');
-    }
     bindBookingRowActions();
+
+    var cols = CONTENT.barbers;
+    var allSlots = SLOT_GROUPS.reduce(function(acc, g){ return acc.concat(g.slots); }, []);
+
+    var html = '<div class="admin-grid" style="grid-template-columns:4.5rem repeat(' + cols.length + ', minmax(9.5rem, 1fr));">';
+    html += '<div class="grid-cnr"></div>';
+    cols.forEach(function(b){
+      html += '<div class="grid-head">' +
+        (b.photo ? '<img src="' + b.photo + '" alt="">' : '<span class="grid-head-initials">' + escapeHtml(b.initials || '') + '</span>') +
+        '<span class="grid-head-name">' + escapeHtml(b.name) + '</span>' +
+      '</div>';
+    });
+    allSlots.forEach(function(t){
+      html += '<div class="grid-time">' + t + '</div>';
+      cols.forEach(function(b){
+        // Normalmente só há uma marcação por barbeiro/hora (o fluxo de
+        // marcação já impede duplicados), mas se por algum motivo houver
+        // mais que uma no mesmo horário (ex.: adicionada manualmente),
+        // mostra-as todas em vez de esconder silenciosamente as outras.
+        var cellBookings = dayBookings.filter(function(x){ return x.barberId === b.id && x.time === t; });
+        if (isBarberOff(b.id, dayIso) || blockedTimesFor(b.id, dayIso).indexOf(t) !== -1) {
+          html += '<div class="grid-cell blocked">Bloqueado</div>';
+        } else if (cellBookings.length) {
+          html += '<div class="grid-cell' + (cellBookings.length > 1 ? ' has-many' : '') + '">' + cellBookings.map(function(booking){
+            var svc = SERVICES.find(function(s){ return s.id === booking.service; });
+            return '<div class="grid-entry booked ' + serviceColorClass(booking.service) +
+                (booking.status === 'concluido' ? ' is-done' : '') + '" data-grid-booking="' + booking.id + '">' +
+              '<span class="grid-cell-name">' + escapeHtml(booking.name) + '</span>' +
+              '<span class="grid-cell-svc">' + escapeHtml(svc ? svc.name : booking.service) + '</span>' +
+            '</div>';
+          }).join('') + '</div>';
+        } else {
+          html += '<div class="grid-cell"></div>';
+        }
+      });
+    });
+    html += '</div>';
+    document.getElementById('admin-grid').innerHTML = html;
+    document.querySelectorAll('[data-grid-booking]').forEach(function(el){
+      el.addEventListener('click', function(){ openBookingDetailModal(el.getAttribute('data-grid-booking')); });
+    });
   }
 
   function statusLabel(s){
     return s === 'concluido' ? 'Concluído' : s === 'cancelado' ? 'Cancelado' : 'Agendado';
+  }
+
+  // Detalhe + ações de uma marcação, aberto ao clicar num bloco da grelha.
+  function openBookingDetailModal(id){
+    var b = AppState.bookings.find(function(x){ return x.id === id; });
+    if (!b) return;
+    ensureAdminModal();
+    document.getElementById('admin-modal-title').textContent = 'Marcação';
+    var svc = SERVICES.find(function(s){ return s.id === b.service; });
+    var barber = BARBERS.find(function(x){ return x.id === b.barberId; });
+    var actions = '';
+    if (b.status === 'agendado') {
+      actions = '<button class="btn btn-primary" type="button" id="am-detail-done" style="width:100%;margin-bottom:0.6rem;">Marcar como Concluído</button>' +
+        '<button class="btn btn-ghost" type="button" id="am-detail-cancel" style="width:100%;">Cancelar Marcação</button>';
+    }
+    adminModalBody.innerHTML =
+      '<div class="summary-card">' +
+        '<div class="srow"><span>Cliente</span><span>' + escapeHtml(b.name) + '</span></div>' +
+        '<div class="srow"><span>Telefone</span><span>' + escapeHtml(b.phone) + '</span></div>' +
+        '<div class="srow"><span>Serviço</span><span>' + escapeHtml(svc ? svc.name : b.service) + (b.redeemed ? ' · 10º corte grátis' : '') + '</span></div>' +
+        '<div class="srow"><span>Barbeiro</span><span>' + escapeHtml(barber ? barber.name : 'Sem preferência') + '</span></div>' +
+        '<div class="srow"><span>Hora</span><span>' + b.time + '</span></div>' +
+        '<div class="srow"><span>Estado</span><span>' + statusLabel(b.status) + '</span></div>' +
+      '</div>' + actions;
+    adminModal.hidden = false;
+    var doneBtn = document.getElementById('am-detail-done');
+    if (doneBtn) doneBtn.addEventListener('click', function(){ markBookingDone(id); closeAdminModal(); });
+    var cancelBtn = document.getElementById('am-detail-cancel');
+    if (cancelBtn) cancelBtn.addEventListener('click', function(){ markBookingStatus(id, 'cancelado'); closeAdminModal(); });
   }
 
   function bookingRowHtml(b, isUnassigned){
@@ -2057,7 +2158,7 @@
           if (newTier !== oldTier) msg += ' Este cliente subiu para ' + TIER_LABELS[newTier] + '.';
         }
         showToast(msg);
-        renderAdminMonth();
+        renderAdminDay();
       })
       .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
   }
@@ -2065,14 +2166,14 @@
   function markBookingStatus(id, status){
     sb(supa.from('bookings').update({ status: status }).eq('id', id))
       .then(function(){ return loadState(); })
-      .then(function(){ renderAdminMonth(); })
+      .then(function(){ renderAdminDay(); })
       .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
   }
 
   function claimBooking(id){
     sb(supa.from('bookings').update({ barber_id: adminState.barberId }).eq('id', id))
       .then(function(){ return loadState(); })
-      .then(function(){ showToast('Marcação atribuída.'); renderAdminMonth(); })
+      .then(function(){ showToast('Marcação atribuída.'); renderAdminDay(); })
       .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
   }
 
@@ -2084,14 +2185,14 @@
       { onConflict: 'barber_id,date,time' }
     ))
       .then(function(){ return loadState(); })
-      .then(function(){ showToast(time ? 'Horário bloqueado.' : 'Folga marcada.'); renderAdminMonth(); return true; })
+      .then(function(){ showToast(time ? 'Horário bloqueado.' : 'Folga marcada.'); renderAdminDay(); return true; })
       .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); return false; });
   }
 
   function removeTimeOff(id){
     sb(supa.from('time_off').delete().eq('id', id))
       .then(function(){ return loadState(); })
-      .then(function(){ showToast('Folga removida.'); renderAdminMonth(); })
+      .then(function(){ showToast('Folga removida.'); renderAdminDay(); })
       .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
   }
 
@@ -2228,7 +2329,7 @@
       var id = 'bk_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
       sb(supa.from('bookings').insert({ id: id, phone: phone, name: name, service: chosenService, barber_id: adminState.barberId, date: date, time: time, status: 'agendado' }))
         .then(function(){ return loadState(); })
-        .then(function(){ showToast('Marcação guardada.'); closeAdminModal(); renderAdminMonth(); })
+        .then(function(){ showToast('Marcação guardada.'); closeAdminModal(); renderAdminDay(); })
         .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
     });
   }
