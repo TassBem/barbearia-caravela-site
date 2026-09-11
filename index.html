@@ -681,6 +681,7 @@
 </head>
 <body class="is-loading">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
 
 <div id="preloader">
   <div class="pl-stage">
@@ -1131,7 +1132,7 @@
         date: state.date,
         time: state.time,
         status: 'agendado'
-      })).then(function(){ state.bookingSaved = true; return loadState(); })
+      })).then(function(){ state.bookingSaved = true; notifyBarberByEmail(); return loadState(); })
         .then(function(){ return true; })
         .catch(function(){ return true; }); // falha de ligação: não bloqueia, confirmação continua por WhatsApp/telefone
     });
@@ -1487,6 +1488,36 @@
   var supa = (window.supabase && window.supabase.createClient)
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
     : null;
+
+  /* ================= aviso por email ao barbeiro (EmailJS) =================
+     Envia um email automático de cada vez que um cliente faz uma marcação
+     online, para o caso de não confirmar por WhatsApp. Preenchido a partir de
+     uma conta gratuita em emailjs.com (Email Services > o email de destino +
+     Email Templates > o que o barbeiro recebe); os 3 valores abaixo (chave
+     pública, ID do serviço, ID do template) vêm de lá. Sem eles preenchidos,
+     isto não faz nada e a marcação continua a funcionar normalmente; é só
+     um aviso extra, nunca bloqueia a marcação em si. */
+  var EMAILJS_PUBLIC_KEY = '';   // Account > General > Public Key
+  var EMAILJS_SERVICE_ID = '';   // Email Services > o serviço ligado (ex.: Gmail)
+  var EMAILJS_TEMPLATE_ID = '';  // Email Templates > o template criado para isto
+  if (window.emailjs && EMAILJS_PUBLIC_KEY) window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+  // O template no EmailJS deve usar estas variáveis: {{service}} {{barber}}
+  // {{date}} {{time}} {{client_name}} {{client_phone}}. O destinatário
+  // configura-se no próprio template do EmailJS, não aqui no código.
+  function notifyBarberByEmail(){
+    if (!window.emailjs || !EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) return;
+    var svc = SERVICES.find(function(s){ return s.id === state.service; });
+    var barber = BARBERS.find(function(b){ return b.id === state.barber; }) || { name: 'Sem preferência' };
+    window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      service: svc ? svc.name : state.service,
+      barber: barber.name,
+      date: fmtDateLabel(state.date),
+      time: state.time,
+      client_name: state.name,
+      client_phone: state.phone
+    }).catch(function(){ /* aviso por email é só um extra; nunca bloqueia a marcação */ });
+  }
 
   var AppState = { customers: {}, bookings: [], pins: {}, timeOff: {} };
   var DEMO_ADMIN_PHONE = '999999999'; // conta de teste, semeada no Supabase (ver schema.sql)
