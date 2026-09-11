@@ -346,18 +346,10 @@
   .ig-handle{ color:inherit; text-decoration:none; transition:color .2s ease; }
   .ig-handle:hover{ color:var(--bordo-bright); }
   .contact-copy p{ color:var(--parchment-dim); margin-top:1.2rem; max-width:34rem; }
-  .ig-grid{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:0.4rem;
-    max-width:26rem; margin:1.6rem 0 1.4rem;
+  .ig-grid-embed{
+    max-width:26rem; margin:1.6rem 0 1.4rem; border-radius:6px; overflow:hidden;
+    border:1px solid var(--border-subtle); background:var(--ink-2);
   }
-  .ig-tile{
-    position:relative; aspect-ratio:1; border-radius:6px; overflow:hidden;
-    background:var(--ink-2); border:1px solid var(--border-subtle);
-    display:flex; align-items:center; justify-content:center; color:var(--brass-dim);
-  }
-  .ig-tile img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .ig-tile.is-placeholder svg{ width:22%; height:22%; opacity:0.6; }
-  .ig-tile a{ position:absolute; inset:0; }
   .ig-follow-wrap{ display:flex; justify-content:center; max-width:26rem; }
   .contact-panel{
     position:relative; z-index:2;
@@ -844,18 +836,10 @@
       <div class="contact-copy">
         <p class="eyebrow" data-reveal="eyebrow">Segue-nos</p>
         <h2 data-reveal="heading"><a class="ig-handle" id="ig-handle-link" href="https://www.instagram.com/caravela.barbearia/" target="_blank" rel="noopener">@caravela.barbearia</a></h2>
-        <!--
-          Grid do Instagram (3x3, últimos 9 posts). Preenchido por
-          renderInstagramGrid() no script principal. Para ligar o feed a
-          sério (atualiza sozinho quando publicam algo novo), o dono da
-          barbearia tem de autorizar um serviço de embed (ex.: SnapWidget,
-          LightWidget) a aceder à conta profissional do Instagram; isso só
-          pode ser feito por quem tem acesso à conta, não programaticamente
-          daqui. Depois de teres o link/embed desse serviço, substitui a
-          chamada a renderInstagramGrid() (ou o conteúdo de #ig-grid) por
-          esse embed. Até lá, mostra uma grelha de marcadores de posição.
-        -->
-        <div class="ig-grid" id="ig-grid" data-reveal-el aria-label="Últimas publicações do Instagram"></div>
+        <!-- Feed real do Instagram via LightWidget, atualiza-se sozinho. -->
+        <div class="ig-grid-embed" data-reveal-el aria-label="Últimas publicações do Instagram">
+          <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/01d226f2ba7e54cdb7bbde34828e8d7d.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
+        </div>
         <div class="ig-follow-wrap"><a class="btn btn-ghost" href="https://www.instagram.com/caravela.barbearia/" target="_blank" rel="noopener">Seguir no Instagram</a></div>
       </div>
       <div class="contact-panel" data-reveal-el>
@@ -2811,20 +2795,6 @@ function initDragRail() {
    perfil. Passar um array de {img, permalink} (até 9) quando o feed a sério
    estiver ligado (ver comentário junto de #ig-grid no HTML).
    ========================================================================= */
-function renderInstagramGrid(posts) {
-  const grid = document.getElementById('ig-grid');
-  if (!grid) return;
-  const PROFILE_URL = 'https://www.instagram.com/caravela.barbearia/';
-  const CAMERA_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M8 6l1.5-2.5h5L16 6"/><circle cx="12" cy="13" r="3.5"/></svg>';
-  const items = (posts && posts.length ? posts : new Array(9).fill(null)).slice(0, 9);
-  grid.innerHTML = items.map((p) => {
-    if (p && p.img) {
-      return '<div class="ig-tile"><a href="' + (p.permalink || PROFILE_URL) + '" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram"></a><img src="' + p.img + '" alt="" loading="lazy"></div>';
-    }
-    return '<div class="ig-tile is-placeholder"><a href="' + PROFILE_URL + '" target="_blank" rel="noopener" aria-label="Abrir o Instagram da Caravela"></a>' + CAMERA_ICON + '</div>';
-  }).join('');
-}
-
 // Em telemóvel, o "@caravela.barbearia" abaixo de "Segue-nos" tenta abrir
 // primeiro a app do Instagram (esquema instagram://); se não houver app
 // instalada (nada tira o foco à página), cai de volta para o site normal.
@@ -2876,7 +2846,6 @@ function safe(label, fn) {
 
 function boot() {
   safe('header', initHeader);
-  safe('instagram', () => renderInstagramGrid());
   // Só depois de initReveals(): ele parte o texto em palavras (splitWords)
   // e troca o <a id="ig-handle-link"> por um clone; ligar aqui antes
   // deixava o "click" agarrado ao nó antigo, já fora do DOM.
