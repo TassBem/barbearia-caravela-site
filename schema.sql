@@ -57,14 +57,29 @@ create table if not exists pins (
   created_at timestamptz not null default now()
 );
 
--- Folgas/férias: dias em que um barbeiro não está disponível para marcações.
+-- Folgas/férias e horários bloqueados (ex.: hora de almoço). "time" vazio
+-- ('') marca o dia inteiro como folga; um horário (ex.: '13:00') bloqueia só
+-- esse horário nesse dia, sem fechar o dia todo.
 create table if not exists time_off (
   id         uuid primary key default gen_random_uuid(),
   barber_id  text not null,
   date       date not null,
+  time       text not null default '',
   created_at timestamptz not null default now(),
-  unique (barber_id, date)
+  unique (barber_id, date, time)
 );
+-- Se a tabela já existir de uma versão anterior do site (só com dias
+-- inteiros), isto acrescenta a coluna em falta e troca a constraint única
+-- para incluir a hora, sem tocar nas folgas já marcadas.
+alter table time_off add column if not exists time text not null default '';
+do $$
+begin
+  alter table time_off drop constraint if exists time_off_barber_id_date_key;
+  alter table time_off add constraint time_off_barber_id_date_time_key unique (barber_id, date, time);
+exception
+  when duplicate_table then null;
+  when duplicate_object then null;
+end $$;
 
 -- Segurança ao nível das linhas (RLS). Modelo simples escolhido para já:
 -- qualquer pessoa com a "publishable key" do site consegue ler e escrever.

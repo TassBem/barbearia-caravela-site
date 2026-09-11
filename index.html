@@ -1277,22 +1277,39 @@
       .map(function(b){ return b.time; });
   }
 
-  // Um barbeiro específico marcado de folga nesse dia não aceita marcações.
-  // "Sem preferência" nunca é bloqueado, porque outro barbeiro pode estar livre.
+  // Um barbeiro específico marcado de folga o dia inteiro não aceita
+  // marcações nesse dia. "Sem preferência" nunca é bloqueado, porque outro
+  // barbeiro pode estar livre. Um bloqueio de um horário específico (ex.: a
+  // hora de almoço) não fecha o dia todo, só esse horário; ver
+  // blockedTimesFor().
   function isBarberOff(barberId, date){
     if (!barberId) return false;
     var offDays = AppState.timeOff[barberId];
-    return !!offDays && offDays.some(function(t){ return t.date === date; });
+    return !!offDays && offDays.some(function(t){ return t.date === date && !t.time; });
+  }
+
+  // Horários bloqueados manualmente pelo barbeiro nesse dia (ex.: hora de
+  // almoço), sem ser um dia de folga inteiro.
+  function blockedTimesFor(barberId, date){
+    if (!barberId) return [];
+    var offDays = AppState.timeOff[barberId];
+    if (!offDays) return [];
+    return offDays.filter(function(t){ return t.date === date && t.time; }).map(function(t){ return t.time; });
   }
 
   function renderSlots(){
     if (!state.date) return '<p class="hint">Escolhe uma data para ver os horários disponíveis.</p>';
     var booked = bookedTimesFor(state.barber, state.date);
+    var blocked = blockedTimesFor(state.barber, state.date);
     var groups = SLOT_GROUPS;
     var html = '<div class="slot-groups">';
     groups.forEach(function(g){
       html += '<div class="slot-group"><div class="label">' + g.label + '</div><div class="slot-list">';
       g.slots.forEach(function(t){
+        if (blocked.indexOf(t) !== -1) {
+          html += '<button type="button" class="taken" disabled title="Fora de horário">' + t + '</button>';
+          return;
+        }
         var taken = booked.indexOf(t) !== -1;
         if (taken) {
           html += '<button type="button" class="taken" disabled title="Já reservado">' + t + '</button>';
@@ -1497,9 +1514,9 @@
      pública, ID do serviço, ID do template) vêm de lá. Sem eles preenchidos,
      isto não faz nada e a marcação continua a funcionar normalmente; é só
      um aviso extra, nunca bloqueia a marcação em si. */
-  var EMAILJS_PUBLIC_KEY = '';   // Account > General > Public Key
-  var EMAILJS_SERVICE_ID = '';   // Email Services > o serviço ligado (ex.: Gmail)
-  var EMAILJS_TEMPLATE_ID = '';  // Email Templates > o template criado para isto
+  var EMAILJS_PUBLIC_KEY = '7xobjjPkSObhxM40I';
+  var EMAILJS_SERVICE_ID = 'service_melhxmn';
+  var EMAILJS_TEMPLATE_ID = '';  // Email Templates > o template criado para isto (falta)
   if (window.emailjs && EMAILJS_PUBLIC_KEY) window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
   // O template no EmailJS deve usar estas variáveis: {{service}} {{barber}}
@@ -1565,7 +1582,7 @@
       var pins = {};
       pinData.forEach(function(p){ pins[p.phone] = p.pin_hash; });
       var timeOff = {};
-      timeOffData.forEach(function(t){ (timeOff[t.barber_id] = timeOff[t.barber_id] || []).push({ id: t.id, date: t.date }); });
+      timeOffData.forEach(function(t){ (timeOff[t.barber_id] = timeOff[t.barber_id] || []).push({ id: t.id, date: t.date, time: t.time || '' }); });
       AppState = { customers: customers, bookings: bookings, pins: pins, timeOff: timeOff };
     }).catch(function(){ /* mantém o que já estava em AppState; sem ligação de momento */ });
   }
@@ -1963,9 +1980,10 @@
     }).sort(function(a,b){ return a.date.localeCompare(b.date); });
     var timeOffWrap = document.getElementById('admin-timeoff-list');
     timeOffWrap.innerHTML = myTimeOff.length
-      ? '<div class="day-group"><h4>As Tuas Folgas Este Mês</h4>' + myTimeOff.map(function(t){
+      ? '<div class="day-group"><h4>As Tuas Folgas e Horários Bloqueados Este Mês</h4>' + myTimeOff.map(function(t){
+          var label = fmtDateLabel(t.date) + (t.time ? ' · ' + t.time : ' · Dia inteiro');
           return '<div class="booking-row">' +
-            '<span class="bk-main"><span class="bk-client">' + fmtDateLabel(t.date) + '</span></span>' +
+            '<span class="bk-main"><span class="bk-client">' + label + '</span></span>' +
             '<span class="bk-actions"><button type="button" class="danger" data-remove-timeoff="' + t.id + '">Remover</button></span>' +
           '</div>';
         }).join('') + '</div>'
@@ -2074,10 +2092,15 @@
       .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
   }
 
-  function addTimeOff(date){
-    return sb(supa.from('time_off').upsert({ barber_id: adminState.barberId, date: date }, { onConflict: 'barber_id,date' }))
+  // time vazio ("") marca o dia inteiro como folga; um horário (ex.: "13:00")
+  // bloqueia só esse horário nesse dia, sem fechar o dia todo.
+  function addTimeOff(date, time){
+    return sb(supa.from('time_off').upsert(
+      { barber_id: adminState.barberId, date: date, time: time || '' },
+      { onConflict: 'barber_id,date,time' }
+    ))
       .then(function(){ return loadState(); })
-      .then(function(){ showToast('Folga marcada.'); renderAdminMonth(); return true; })
+      .then(function(){ showToast(time ? 'Horário bloqueado.' : 'Folga marcada.'); renderAdminMonth(); return true; })
       .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); return false; });
   }
 
@@ -2152,21 +2175,34 @@
     document.getElementById('admin-modal-title').textContent = 'Gerir Folgas';
     var upcoming = (AppState.timeOff[adminState.barberId] || [])
       .filter(function(t){ return t.date >= isoDate(today0.getFullYear(), today0.getMonth(), today0.getDate()); })
-      .sort(function(a,b){ return a.date.localeCompare(b.date); });
+      .sort(function(a,b){ return (a.date + (a.time || '00:00')).localeCompare(b.date + (b.time || '00:00')); });
+    var allSlots = SLOT_GROUPS.reduce(function(acc, g){ return acc.concat(g.slots); }, []);
     adminModalBody.innerHTML =
-      '<div class="field"><label>Marcar Folga</label><input type="date" id="am-timeoff-date"></div>' +
-      '<button class="btn btn-primary" type="button" id="am-timeoff-add" style="width:100%;margin-bottom:1rem;">Marcar Folga</button>' +
+      '<div class="field"><label>Marcar Folga (dia inteiro)</label><input type="date" id="am-timeoff-date"></div>' +
+      '<button class="btn btn-primary" type="button" id="am-timeoff-add" style="width:100%;margin-bottom:1.5rem;">Marcar Folga</button>' +
+      '<div class="field"><label>Bloquear um Horário (ex.: hora de almoço)</label><input type="date" id="am-block-date"></div>' +
+      '<div class="field"><label>Hora</label><select id="am-block-time">' +
+        allSlots.map(function(t){ return '<option value="' + t + '">' + t + '</option>'; }).join('') +
+      '</select></div>' +
+      '<button class="btn btn-ghost" type="button" id="am-block-add" style="width:100%;margin-bottom:1rem;">Bloquear Horário</button>' +
       (upcoming.length
         ? upcoming.map(function(t){
-            return '<div class="booking-row"><span class="bk-main"><span class="bk-client">' + fmtDateLabel(t.date) + '</span></span>' +
+            var label = t.time ? (fmtDateLabel(t.date) + ' · ' + t.time) : (fmtDateLabel(t.date) + ' · Dia inteiro');
+            return '<div class="booking-row"><span class="bk-main"><span class="bk-client">' + label + '</span></span>' +
               '<span class="bk-actions"><button type="button" class="danger" data-am-remove-timeoff="' + t.id + '">Remover</button></span></div>';
           }).join('')
-        : '<p class="empty-state">Sem folgas marcadas.</p>');
+        : '<p class="empty-state">Sem folgas nem horários bloqueados.</p>');
     adminModal.hidden = false;
     document.getElementById('am-timeoff-add').addEventListener('click', function(){
       var date = document.getElementById('am-timeoff-date').value;
       if (!date) { showToast('Escolhe uma data.'); return; }
       addTimeOff(date).then(function(ok){ if (ok) openTimeOffModal(); });
+    });
+    document.getElementById('am-block-add').addEventListener('click', function(){
+      var date = document.getElementById('am-block-date').value;
+      var time = document.getElementById('am-block-time').value;
+      if (!date) { showToast('Escolhe uma data.'); return; }
+      addTimeOff(date, time).then(function(ok){ if (ok) openTimeOffModal(); });
     });
     adminModalBody.querySelectorAll('[data-am-remove-timeoff]').forEach(function(el){
       el.addEventListener('click', function(){
