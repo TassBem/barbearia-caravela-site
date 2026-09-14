@@ -1420,11 +1420,15 @@
     var stamps = c ? (c.stamps || 0) : 0;
     var perks = TIER_PERKS[tier] || [];
     var cardHtml = '<div class="summary-card' + (tier !== 'normal' ? ' gold' : '') + '">' +
-      '<div class="srow"><span>Nome</span><span>' + escapeHtml((c && c.name) || 'Novo cliente') + '</span></div>' +
+      '<div class="srow"><span>Nome</span><span id="am-confirm-nameval">' + escapeHtml((c && c.name) || 'Novo cliente') + '</span></div>' +
       '<div class="srow"><span>Carimbos</span><span>' + stamps + ' de ' + CYCLE_LENGTH + ' (10º grátis)</span></div>' +
       '<div class="srow"><span>Nível</span><span>' + TIER_LABELS[tier] + (perks.length ? ': ' + perks.join(' + ') : '') + '</span></div>' +
     '</div>';
-    var nameField = c ? '' : '<div class="field" style="margin-top:1rem;"><label>Nome do Cliente</label><input type="text" id="am-confirm-name" placeholder="Nome"></div>';
+    // Cliente novo: pede o nome antes de deixar confirmar o corte, para o
+    // barbeiro saber com quem está a falar (e confirmar que o número está
+    // certo) antes de começar, em vez de descobrir o nome só depois.
+    var nameField = c ? '' : '<p class="hint" style="text-align:left;margin:0 0 0.6rem;">Cliente novo. Pergunta o nome antes de começar o corte.</p>' +
+      '<div class="field" style="margin-bottom:1rem;"><label>Nome do Cliente</label><input type="text" id="am-confirm-name" placeholder="Nome"></div>';
     var pinHtml = '<div class="field" style="margin-top:1rem;"><label>' + (hasPin ? 'Repor PIN (novo)' : 'Criar PIN para o cliente') + '</label>' +
       '<input type="tel" inputmode="numeric" maxlength="4" class="pin-input" id="am-confirm-pin" placeholder="····"></div>' +
       '<button class="btn btn-ghost" type="button" id="am-confirm-pin-go" style="width:100%;margin-bottom:1rem;">' + (hasPin ? 'Repor PIN' : 'Criar PIN') + '</button>';
@@ -1432,9 +1436,15 @@
       '<button class="btn btn-primary" type="button" id="am-confirm-done" style="width:100%;margin:1rem 0;">Confirmar Corte</button>' +
       pinHtml +
       '<button type="button" class="link-reset" id="am-confirm-back">‹ Procurar outro número</button>';
+    var nameInput = document.getElementById('am-confirm-name');
+    if (nameInput) {
+      nameInput.addEventListener('input', function(){
+        document.getElementById('am-confirm-nameval').textContent = nameInput.value.trim() || 'Novo cliente';
+      });
+    }
     document.getElementById('am-confirm-done').addEventListener('click', function(){
-      var nameInput = document.getElementById('am-confirm-name');
       var name = nameInput ? nameInput.value.trim() : ((c && c.name) || '');
+      if (!c && !name) { showToast('Pergunta o nome do cliente antes de confirmar.'); return; }
       confirmCut(phone, name, tier, stamps);
     });
     document.getElementById('am-confirm-pin-go').addEventListener('click', function(){
