@@ -720,7 +720,6 @@
 </head>
 <body class="is-loading">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
 
 <div id="preloader">
   <div class="pl-stage">
@@ -770,10 +769,10 @@
     <a href="#marcar">Marcar</a>
   </nav>
   <div class="nav-actions">
-    <button class="btn btn-arrow nav-cta" type="button" id="open-booking-nav">
+    <a class="btn btn-arrow nav-cta" href="https://barbearia-caravela.buk.pt/" target="_blank" rel="noopener" id="open-booking-nav">
       Marcar
       <span class="disc"><svg width="15" height="15" viewBox="0 0 19.0049 19" fill="currentColor" aria-hidden="true"><path d="M19.0049 1.18457H19.002V18.3564H17.8047V2.21973L0.84668 19L0 18.1621L17.1582 1.18457H0.453125V0H19.0049V1.18457Z"/></svg></span>
-    </button>
+    </a>
     <button class="btn btn-ghost btn-sm nav-login-mobile" type="button" id="open-login-mobile">Login</button>
   </div>
 </header>
@@ -786,7 +785,7 @@
         <h1 data-reveal="heading">Ancorados na <em>tradição</em></h1>
         <p class="lede" data-reveal="body">Corte clássico, barba bem tratada e o à-vontade de uma boa conversa, no coração da Maia.</p>
         <div class="hero-ctas" data-reveal-el>
-          <button class="btn btn-primary" type="button" id="open-booking-hero">Marcar Agora</button>
+          <a class="btn btn-primary" href="https://barbearia-caravela.buk.pt/" target="_blank" rel="noopener" id="open-booking-hero">Marcar Agora</a>
         </div>
       </div>
       <div class="hero-scene" data-scene="hero"><canvas id="scene-hero"></canvas></div>
@@ -912,7 +911,7 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
           <div><div class="lbl">Horário</div><span class="val">Terça a Sábado · 09:00 – 19:30</span></div>
         </div>
-        <button class="btn btn-primary" type="button" id="open-booking-contact">Marcar Agora</button>
+        <a class="btn btn-primary" href="https://barbearia-caravela.buk.pt/" target="_blank" rel="noopener" id="open-booking-contact">Marcar Agora</a>
       </div>
     </div>
   </section>
@@ -927,30 +926,6 @@
     </div>
   </div>
 </footer>
-
-<div class="booking-overlay" id="booking-overlay" hidden>
-  <div class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="booking-title">
-    <div class="booking-header">
-      <button class="icon-btn" id="booking-back" type="button" aria-label="Voltar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      </button>
-      <div class="booking-title-wrap">
-        <p class="eyebrow" style="justify-content:center;margin-bottom:0.3rem;">Nova Marcação</p>
-        <h3 id="booking-title">Escolhe o Serviço</h3>
-      </div>
-      <button class="icon-btn" id="booking-close" type="button" aria-label="Fechar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-      </button>
-    </div>
-    <div class="booking-dots" id="booking-dots">
-      <span class="active"></span><span></span><span></span><span></span>
-    </div>
-    <div class="booking-body" id="booking-body"></div>
-    <div class="booking-footer" id="booking-footer">
-      <button class="btn btn-primary" id="booking-continue" type="button" disabled>Continuar</button>
-    </div>
-  </div>
-</div>
 
 <div class="booking-overlay" id="login-overlay" hidden>
   <div class="booking-modal" role="dialog" aria-modal="true" aria-labelledby="login-title">
@@ -983,28 +958,7 @@
 
     <div id="admin-auth"></div>
 
-    <div id="admin-dashboard" hidden>
-      <div class="admin-toolbar">
-        <div class="day-nav">
-          <button class="icon-btn" id="admin-prev" type="button" aria-label="Dia anterior">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <h3 id="admin-day-label">&nbsp;</h3>
-          <button class="icon-btn" id="admin-next" type="button" aria-label="Dia seguinte">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-          <button class="btn btn-ghost btn-sm" type="button" id="admin-today-btn">Hoje</button>
-        </div>
-        <div class="admin-toolbar-actions">
-          <button class="btn btn-ghost btn-sm" type="button" id="admin-timeoff-btn">Gerir Folgas</button>
-          <button class="btn btn-ghost btn-sm" type="button" id="admin-lookup-btn">Ver Cartão de Cliente</button>
-          <button class="btn btn-primary btn-sm" type="button" id="admin-add-btn">+ Nova Marcação</button>
-        </div>
-      </div>
-
-      <div id="admin-unassigned"></div>
-      <div class="admin-grid-scroll"><div id="admin-grid"></div></div>
-    </div>
+    <div id="admin-dashboard" hidden></div>
   </div>
 </div>
 
@@ -1052,492 +1006,6 @@
   };
   /*__PAINEL_CONTENT_END__*/
 
-  var SERVICES = CONTENT.serviceGroups.reduce(function(acc, g){
-    return acc.concat(g.items.map(function(it){
-      var o = { id:it.id, name:it.name, note:it.note || '', price:(it.price == null ? null : it.price) };
-      if (it.priceLabel) o.priceLabel = it.priceLabel;
-      else if (o.price == null) o.priceLabel = 'Sob orçamento';
-      return o;
-    }));
-  }, []);
-  var BARBERS = [{ id:'', name:'Sem preferência', initials:'', phone:'', photo:'' }].concat(
-    CONTENT.barbers.map(function(b){ return { id:b.id, name:b.name, initials:b.initials || '', phone:b.phone || '', photo:b.photo || '' }; })
-  );
-  var CLOSED_DOWS = CONTENT.closedDows.slice();
-  var SLOT_GROUPS = CONTENT.slotGroups;
-  var MONTHS_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  var DOW_PT = ['seg','ter','qua','qui','sex','sáb','dom'];
-  var STEP_TITLES = ['Escolhe o Serviço','Escolhe um Profissional','Escolhe Data e Hora','Os Teus Dados'];
-
-  var today0 = new Date(); today0.setHours(0,0,0,0);
-
-  var overlay = document.getElementById('booking-overlay');
-  var body = document.getElementById('booking-body');
-  var footer = document.getElementById('booking-footer');
-  var continueBtn = document.getElementById('booking-continue');
-  var backBtn = document.getElementById('booking-back');
-  var closeBtn = document.getElementById('booking-close');
-  var titleEl = document.getElementById('booking-title');
-  var dots = document.querySelectorAll('#booking-dots span');
-
-  var state = {};
-  function freshState(){
-    return {
-      step: 0, service: null, barber: 'unset', date: null, time: null,
-      name: '', phone: '',
-      calYear: today0.getFullYear(), calMonth: today0.getMonth(),
-      bookingSaved: false
-    };
-  }
-  state = freshState();
-
-  function priceText(s){ return s.priceLabel || (s.price + ' €'); }
-  function pad2(n){ return n < 10 ? '0' + n : '' + n; }
-  function isoDate(y,m,d){ return y + '-' + pad2(m+1) + '-' + pad2(d); }
-
-  function openBooking(){
-    state = freshState();
-    overlay.hidden = false;
-    document.documentElement.style.overflow = 'hidden';
-    render();
-  }
-  function closeBooking(){
-    overlay.hidden = true;
-    document.documentElement.style.overflow = '';
-  }
-
-  document.getElementById('open-booking-nav').addEventListener('click', openBooking);
-  document.getElementById('open-booking-hero').addEventListener('click', openBooking);
-  closeBtn.addEventListener('click', closeBooking);
-  overlay.addEventListener('click', function(e){ if (e.target === overlay) closeBooking(); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !overlay.hidden) closeBooking(); });
-
-  backBtn.addEventListener('click', function(){
-    if (state.step === 4) { state.step = 3; render(); return; }
-    if (state.step > 0) { state.step -= 1; render(); }
-  });
-
-  continueBtn.addEventListener('click', function(){
-    if (state.step === 3) {
-      if (!validDetails()) return;
-      continueBtn.disabled = true;
-      submitBooking().then(function(ok){
-        continueBtn.disabled = false;
-        if (!ok) {
-          showToast('Esse horário acabou de ficar ocupado. Escolhe outra hora.');
-          state.time = null;
-          state.step = 2;
-          render();
-          return;
-        }
-        state.step = 4;
-        render();
-      });
-      return;
-    }
-    if (!canContinue()) return;
-    if (state.step === 1) {
-      // A seguir mostramos o calendário: atualiza a lista de marcações
-      // primeiro, para os horários já ocupados aparecerem riscados.
-      state.step += 1;
-      render();
-      loadState().then(function(){ renderDateTimeStep(); });
-      return;
-    }
-    state.step += 1;
-    render();
-  });
-
-  // Regista o pedido diretamente na base de dados (fica visível no painel dos
-  // barbeiros, incluindo por atribuir quando o cliente escolhe "Sem preferência").
-  // Mesmo que isto falhe (por exemplo, sem ligação), o pedido continua a poder
-  // ser confirmado por WhatsApp ou telefone no passo seguinte.
-  // Devolve true se ficou marcado (ou já estava), false se o horário acabou
-  // de ser ocupado por outra pessoa entretanto (última verificação, mesmo em
-  // cima da hora, para dois clientes nunca ficarem com o mesmo horário).
-  function submitBooking(){
-    if (state.bookingSaved || !supa) return Promise.resolve(true);
-    return loadState().then(function(){
-      if (state.barber && bookedTimesFor(state.barber, state.date).indexOf(state.time) !== -1) {
-        return false;
-      }
-      var id = 'bk_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
-      return sb(supa.from('bookings').insert({
-        id: id,
-        phone: state.phone,
-        name: state.name,
-        service: state.service,
-        barber_id: state.barber || null,
-        date: state.date,
-        time: state.time,
-        status: 'agendado'
-      })).then(function(){ state.bookingSaved = true; notifyBarberByEmail(); return loadState(); })
-        .then(function(){ return true; })
-        .catch(function(){ return true; }); // falha de ligação: não bloqueia, confirmação continua por WhatsApp/telefone
-    });
-  }
-
-  function canContinue(){
-    if (state.step === 0) return !!state.service;
-    if (state.step === 1) return state.barber !== 'unset';
-    if (state.step === 2) return !!state.date && !!state.time;
-    if (state.step === 3) return validDetails();
-    return true;
-  }
-  function validDetails(){
-    return state.name.trim().length > 1 && state.phone.trim().length >= 9;
-  }
-
-  function render(){
-    // header
-    backBtn.classList.toggle('is-hidden', state.step === 0);
-    titleEl.textContent = state.step === 4 ? 'Confirmação' : STEP_TITLES[state.step];
-    dots.forEach(function(d, i){
-      d.classList.toggle('active', i === state.step);
-      d.classList.toggle('done', state.step > i || state.step === 4);
-    });
-    footer.style.display = state.step === 4 ? 'none' : '';
-    continueBtn.textContent = state.step === 3 ? 'Confirmar Marcação' : 'Continuar';
-    continueBtn.disabled = !canContinue();
-
-    if (state.step === 0) renderServiceStep();
-    else if (state.step === 1) renderBarberStep();
-    else if (state.step === 2) renderDateTimeStep();
-    else if (state.step === 3) renderDetailsStep();
-    else renderSuccessStep();
-  }
-
-  function renderServiceStep(){
-    var html = SERVICES.map(function(s){
-      var sel = state.service === s.id ? ' selected' : '';
-      return '<button type="button" class="pick-row' + sel + '" data-service="' + s.id + '">' +
-        '<span class="row-main">' + s.name + (s.note ? '<small>' + s.note + '</small>' : '') + '</span>' +
-        '<span class="row-price">' + priceText(s) + '</span>' +
-      '</button>';
-    }).join('');
-    body.innerHTML = html;
-    body.querySelectorAll('[data-service]').forEach(function(el){
-      el.addEventListener('click', function(){
-        state.service = el.getAttribute('data-service');
-        render();
-      });
-    });
-  }
-
-  function renderBarberStep(){
-    var html = BARBERS.map(function(b){
-      var sel = state.barber === b.id ? ' selected' : '';
-      var avatar = b.photo
-        ? '<span class="avatar avatar-photo"><img src="' + b.photo + '" alt=""></span>'
-        : '<span class="avatar">' + (b.id === '' ? '?' : b.initials) + '</span>';
-      return '<button type="button" class="pick-row' + sel + '" data-barber="' + b.id + '">' +
-        avatar +
-        '<span class="row-main">' + b.name + '</span>' +
-      '</button>';
-    }).join('');
-    body.innerHTML = html;
-    body.querySelectorAll('[data-barber]').forEach(function(el){
-      el.addEventListener('click', function(){
-        state.barber = el.getAttribute('data-barber');
-        render();
-      });
-    });
-  }
-
-  function renderDateTimeStep(){
-    var y = state.calYear, m = state.calMonth;
-    var firstDow = (new Date(y, m, 1).getDay() + 6) % 7; // Monday-first
-    var daysInMonth = new Date(y, m + 1, 0).getDate();
-    var isCurrentMonth = (y === today0.getFullYear() && m === today0.getMonth());
-    var maxAhead = new Date(today0.getFullYear(), today0.getMonth() + 2, 1);
-    var canNext = new Date(y, m, 1) < maxAhead;
-
-    var html = '<div class="cal-head">' +
-      '<button type="button" class="icon-btn" id="cal-prev" ' + (isCurrentMonth ? 'disabled style="opacity:.3;cursor:not-allowed;"' : '') + ' aria-label="Mês anterior">' +
-      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>' +
-      '<h4>' + MONTHS_PT[m] + ' ' + y + '</h4>' +
-      '<button type="button" class="icon-btn" id="cal-next" ' + (canNext ? '' : 'disabled style="opacity:.3;cursor:not-allowed;"') + ' aria-label="Mês seguinte">' +
-      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>' +
-    '</div>';
-
-    html += '<div class="cal-grid">';
-    DOW_PT.forEach(function(d){ html += '<div class="dow">' + d + '</div>'; });
-    for (var p = 0; p < firstDow; p++) html += '<span class="pad">0</span>';
-    for (var day = 1; day <= daysInMonth; day++) {
-      var dow = new Date(y, m, day).getDay();
-      var thisDate = new Date(y, m, day);
-      var iso = isoDate(y, m, day);
-      var disabled = thisDate < today0 || CLOSED_DOWS.indexOf(dow) !== -1 || isBarberOff(state.barber, iso);
-      var sel = state.date === iso ? ' selected' : '';
-      html += '<button type="button" class="day' + sel + '" data-date="' + iso + '" ' + (disabled ? 'disabled' : '') + '>' + day + '</button>';
-    }
-    html += '</div>';
-
-    html += '<div id="slot-area">' + renderSlots() + '</div>';
-
-    body.innerHTML = html;
-
-    var prevBtn = document.getElementById('cal-prev');
-    var nextBtn = document.getElementById('cal-next');
-    if (prevBtn) prevBtn.addEventListener('click', function(){
-      if (isCurrentMonth) return;
-      state.calMonth -= 1;
-      if (state.calMonth < 0) { state.calMonth = 11; state.calYear -= 1; }
-      renderDateTimeStep();
-    });
-    if (nextBtn) nextBtn.addEventListener('click', function(){
-      state.calMonth += 1;
-      if (state.calMonth > 11) { state.calMonth = 0; state.calYear += 1; }
-      renderDateTimeStep();
-    });
-    body.querySelectorAll('button.day:not(:disabled)').forEach(function(el){
-      el.addEventListener('click', function(){
-        state.date = el.getAttribute('data-date');
-        state.time = null;
-        // Vai buscar as marcações mais recentes antes de mostrar os horários,
-        // para não mostrar como livre um horário que acabou de ser ocupado.
-        loadState().then(function(){
-          renderDateTimeStep();
-          continueBtn.disabled = !canContinue();
-        });
-      });
-    });
-    bindSlotButtons();
-    continueBtn.disabled = !canContinue();
-  }
-
-  // Horários já ocupados por este barbeiro nesta data (marcações agendadas ou
-  // concluídas; canceladas voltam a libertar o horário). "Sem preferência" não
-  // bloqueia nada, porque qualquer um dos barbeiros pode ainda estar livre.
-  function bookedTimesFor(barberId, date){
-    if (!barberId) return [];
-    return AppState.bookings
-      .filter(function(b){ return b.barberId === barberId && b.date === date && b.status !== 'cancelado'; })
-      .map(function(b){ return b.time; });
-  }
-
-  // Um barbeiro específico marcado de folga o dia inteiro não aceita
-  // marcações nesse dia. "Sem preferência" nunca é bloqueado, porque outro
-  // barbeiro pode estar livre. Um bloqueio de um horário específico (ex.: a
-  // hora de almoço) não fecha o dia todo, só esse horário; ver
-  // blockedTimesFor().
-  function isBarberOff(barberId, date){
-    if (!barberId) return false;
-    var offDays = AppState.timeOff[barberId];
-    return !!offDays && offDays.some(function(t){ return t.date === date && !t.time; });
-  }
-
-  // Horários bloqueados manualmente pelo barbeiro nesse dia (ex.: hora de
-  // almoço), sem ser um dia de folga inteiro.
-  function blockedTimesFor(barberId, date){
-    if (!barberId) return [];
-    var offDays = AppState.timeOff[barberId];
-    if (!offDays) return [];
-    return offDays.filter(function(t){ return t.date === date && t.time; }).map(function(t){ return t.time; });
-  }
-
-  function renderSlots(){
-    if (!state.date) return '<p class="hint">Escolhe uma data para ver os horários disponíveis.</p>';
-    var booked = bookedTimesFor(state.barber, state.date);
-    var blocked = blockedTimesFor(state.barber, state.date);
-    var groups = SLOT_GROUPS;
-    var html = '<div class="slot-groups">';
-    groups.forEach(function(g){
-      html += '<div class="slot-group"><div class="label">' + g.label + '</div><div class="slot-list">';
-      g.slots.forEach(function(t){
-        if (blocked.indexOf(t) !== -1) {
-          html += '<button type="button" class="taken" disabled title="Fora de horário">' + t + '</button>';
-          return;
-        }
-        var taken = booked.indexOf(t) !== -1;
-        if (taken) {
-          html += '<button type="button" class="taken" disabled title="Já reservado">' + t + '</button>';
-          return;
-        }
-        var sel = state.time === t ? ' selected' : '';
-        html += '<button type="button" class="' + sel.trim() + '" data-time="' + t + '">' + t + '</button>';
-      });
-      html += '</div></div>';
-    });
-    html += '</div>';
-    return html;
-  }
-  function bindSlotButtons(){
-    body.querySelectorAll('[data-time]').forEach(function(el){
-      el.addEventListener('click', function(){
-        state.time = el.getAttribute('data-time');
-        body.querySelectorAll('[data-time]').forEach(function(x){ x.classList.remove('selected'); });
-        el.classList.add('selected');
-        continueBtn.disabled = !canContinue();
-      });
-    });
-  }
-
-  function renderDetailsStep(){
-    var html = '<div class="field"><label for="bk-name">Nome</label>' +
-      '<input type="text" id="bk-name" placeholder="O teu nome" value="' + escapeHtml(state.name) + '"></div>' +
-      '<div class="field"><label for="bk-phone">Telemóvel</label>' +
-      '<input type="tel" id="bk-phone" placeholder="912 345 678" value="' + escapeHtml(state.phone) + '"></div>';
-    body.innerHTML = html;
-    var nameEl = document.getElementById('bk-name');
-    var phoneEl = document.getElementById('bk-phone');
-    nameEl.addEventListener('input', function(){ state.name = nameEl.value; continueBtn.disabled = !canContinue(); });
-    phoneEl.addEventListener('input', function(){ state.phone = phoneEl.value; continueBtn.disabled = !canContinue(); });
-  }
-
-  /* Ícones genéricos para "adicionar à agenda" (glifos próprios, não os
-     logótipos oficiais das apps, para não reproduzir marcas registadas). */
-  var CAL_ICO_GOOGLE = '<svg width="22" height="22" viewBox="0 0 48 48"><rect x="6" y="8" width="36" height="34" rx="3" fill="#fff" stroke="#dadce0" stroke-width="1"/><rect x="6" y="8" width="36" height="10" rx="3" fill="#1a73e8"/><rect x="6" y="14" width="36" height="4" fill="#1a73e8"/><rect x="13" y="4" width="4" height="9" rx="2" fill="#5f6368"/><rect x="31" y="4" width="4" height="9" rx="2" fill="#5f6368"/><rect x="24" y="24" width="9" height="9" fill="#1a73e8"/><rect x="13" y="24" width="8" height="8" fill="none" stroke="#5f6368" stroke-width="1.3"/></svg>';
-  var CAL_ICO_OUTLOOK = '<svg width="22" height="22" viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="36" rx="4" fill="#0a2767"/><rect x="4" y="6" width="24" height="36" rx="4" fill="#0364b8"/><rect x="4" y="6" width="24" height="18" fill="#0a2767" opacity="0.25"/><circle cx="16" cy="24" r="9" fill="#fff"/><path d="M16 18.5c3 0 5.2 2.4 5.2 5.5s-2.2 5.5-5.2 5.5-5.2-2.4-5.2-5.5 2.2-5.5 5.2-5.5zm0 2.6c-1.5 0-2.6 1.3-2.6 2.9s1.1 2.9 2.6 2.9 2.6-1.3 2.6-2.9-1.1-2.9-2.6-2.9z" fill="#0364b8"/><rect x="28" y="14" width="16" height="9" fill="#28a8ea"/><rect x="28" y="24" width="16" height="9" fill="#0078d4"/><rect x="28" y="14" width="8" height="9" fill="#50d9ff" opacity="0.6"/></svg>';
-  var CAL_ICO_APPLE = '<svg width="22" height="22" viewBox="0 0 48 48"><rect x="6" y="6" width="36" height="36" rx="8" fill="#fff" stroke="#e3e3e3" stroke-width="1"/><path d="M6 14a8 8 0 0 1 8-8h20a8 8 0 0 1 8 8v3H6z" fill="#fa4d4d"/><rect x="13" y="4" width="3.5" height="8" rx="1.7" fill="#8a8a8f"/><rect x="31.5" y="4" width="3.5" height="8" rx="1.7" fill="#8a8a8f"/><text x="24" y="34" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle" fill="#3a3a3c">' + new Date().getDate() + '</text></svg>';
-
-  function escapeHtml(s){
-    return (s || '').replace(/[&<>"']/g, function(c){
-      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
-    });
-  }
-
-  function fmtDateLabel(iso){
-    var parts = iso.split('-').map(Number);
-    var d = new Date(parts[0], parts[1] - 1, parts[2]);
-    var s = d.toLocaleDateString('pt-PT', { weekday:'long', day:'numeric', month:'long' });
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  }
-
-  function buildWhatsappLink(){
-    var svc = SERVICES.find(function(s){ return s.id === state.service; });
-    var barber = BARBERS.find(function(b){ return b.id === state.barber; }) || { name:'Sem preferência' };
-    var msg = 'Olá! Gostaria de marcar um horário na Barbearia Caravela.\n\n' +
-      'Serviço: ' + svc.name + '\n' +
-      'Profissional: ' + barber.name + '\n' +
-      'Data: ' + fmtDateLabel(state.date) + '\n' +
-      'Hora: ' + state.time + '\n' +
-      'Nome: ' + state.name + '\n' +
-      'Telefone: ' + state.phone + '\n\n' +
-      'Obrigado!';
-    return 'https://wa.me/351922030668?text=' + encodeURIComponent(msg);
-  }
-
-  /* ================= adicionar à agenda pessoal do cliente ================= */
-  var CARAVELA_ADDRESS = 'R. José Rodrigues da Silva Júnior 196, 4470-316 Maia';
-  var CARAVELA_DURATION_MIN = 30; // duração estimada de cada marcação, para efeitos de agenda
-
-  // Devolve {start: Date, end: Date} a partir de state.date ('YYYY-MM-DD') e state.time ('HH:MM').
-  function bookingDates(){
-    var dParts = state.date.split('-').map(Number);
-    var tParts = state.time.split(':').map(Number);
-    var start = new Date(dParts[0], dParts[1] - 1, dParts[2], tParts[0], tParts[1], 0);
-    var end = new Date(start.getTime() + CARAVELA_DURATION_MIN * 60000);
-    return { start: start, end: end };
-  }
-
-  // Formata uma Date local como 'YYYYMMDDTHHMMSS' (hora local, sem fuso: para o Google/Outlook
-  // interpretarem à hora certa em vez de a converterem para UTC).
-  function fmtIcsLocal(d){
-    var p2 = function(n){ return n < 10 ? '0' + n : '' + n; };
-    return d.getFullYear() + p2(d.getMonth() + 1) + p2(d.getDate()) + 'T' +
-      p2(d.getHours()) + p2(d.getMinutes()) + p2(d.getSeconds());
-  }
-
-  function calendarEventInfo(){
-    var svc = SERVICES.find(function(s){ return s.id === state.service; });
-    var barber = BARBERS.find(function(b){ return b.id === state.barber; }) || { name:'Sem preferência' };
-    var range = bookingDates();
-    return {
-      title: svc.name + ' · Barbearia Caravela',
-      description: 'Marcação na Barbearia Caravela.\nServiço: ' + svc.name +
-        '\nProfissional: ' + barber.name + '\nTelefone da barbearia: 922 030 668',
-      location: CARAVELA_ADDRESS,
-      start: range.start,
-      end: range.end
-    };
-  }
-
-  function buildGoogleCalUrl(){
-    var ev = calendarEventInfo();
-    var params = new URLSearchParams({
-      action: 'TEMPLATE',
-      text: ev.title,
-      dates: fmtIcsLocal(ev.start) + '/' + fmtIcsLocal(ev.end),
-      details: ev.description,
-      location: ev.location
-    });
-    return 'https://calendar.google.com/calendar/render?' + params.toString();
-  }
-
-  function buildOutlookCalUrl(){
-    var ev = calendarEventInfo();
-    var params = new URLSearchParams({
-      path: '/calendar/action/compose',
-      rru: 'addevent',
-      subject: ev.title,
-      startdt: ev.start.toISOString(),
-      enddt: ev.end.toISOString(),
-      body: ev.description,
-      location: ev.location
-    });
-    return 'https://outlook.live.com/calendar/0/deeplink/compose?' + params.toString();
-  }
-
-  // Ficheiro .ics universal: o que o Apple Calendar (e qualquer outra app de calendário) usa
-  // para importar o evento diretamente, sem precisar de nenhuma conta ligada.
-  function buildIcsDataUrl(){
-    var ev = calendarEventInfo();
-    var uid = 'caravela-' + Date.now() + '@barbeariacaravela.pt';
-    var lines = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//Barbearia Caravela//PT',
-      'CALSCALE:GREGORIAN',
-      'BEGIN:VEVENT',
-      'UID:' + uid,
-      'DTSTAMP:' + fmtIcsLocal(new Date()) + 'Z',
-      'DTSTART:' + fmtIcsLocal(ev.start),
-      'DTEND:' + fmtIcsLocal(ev.end),
-      'SUMMARY:' + ev.title,
-      'DESCRIPTION:' + ev.description.replace(/\n/g, '\\n'),
-      'LOCATION:' + ev.location,
-      'END:VEVENT',
-      'END:VCALENDAR'
-    ];
-    return 'data:text/calendar;charset=utf8,' + encodeURIComponent(lines.join('\r\n'));
-  }
-
-  function renderSuccessStep(){
-    var svc = SERVICES.find(function(s){ return s.id === state.service; });
-    var barber = BARBERS.find(function(b){ return b.id === state.barber; }) || { name:'Sem preferência' };
-    var html = '<div class="booking-success">' +
-      '<div class="check"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>' +
-      '<h3>Falta só confirmar</h3>' +
-      '<p class="note">Envia o pedido à barbearia para garantir o teu horário. Respondemos a confirmar assim que possível.</p>' +
-      '</div>' +
-      '<div class="summary-card">' +
-        '<div class="srow"><span>Serviço</span><span>' + svc.name + '</span></div>' +
-        '<div class="srow"><span>Profissional</span><span>' + barber.name + '</span></div>' +
-        '<div class="srow"><span>Data</span><span>' + fmtDateLabel(state.date) + '</span></div>' +
-        '<div class="srow"><span>Hora</span><span>' + state.time + '</span></div>' +
-        '<div class="srow"><span>Nome</span><span>' + escapeHtml(state.name) + '</span></div>' +
-        '<div class="srow"><span>Telefone</span><span>' + escapeHtml(state.phone) + '</span></div>' +
-      '</div>' +
-      '<div class="success-ctas">' +
-        '<a class="btn btn-primary" href="' + buildWhatsappLink() + '" target="_blank" rel="noopener">Confirmar por WhatsApp</a>' +
-      '</div>' +
-      '<div class="cal-add">' +
-        '<div class="cal-label">Adicionar à minha agenda</div>' +
-        '<div class="cal-ctas">' +
-          '<a class="cal-ico-btn" href="' + buildGoogleCalUrl() + '" target="_blank" rel="noopener" aria-label="Adicionar ao Google Agenda" title="Google Agenda">' + CAL_ICO_GOOGLE + '</a>' +
-          '<a class="cal-ico-btn" href="' + buildOutlookCalUrl() + '" target="_blank" rel="noopener" aria-label="Adicionar ao Outlook" title="Outlook">' + CAL_ICO_OUTLOOK + '</a>' +
-          '<a class="cal-ico-btn" href="' + buildIcsDataUrl() + '" download="marcacao-caravela.ics" aria-label="Descarregar para Apple Calendar ou outra app" title="Apple / Outros">' + CAL_ICO_APPLE + '</a>' +
-        '</div>' +
-      '</div>' +
-      '<button type="button" class="link-reset" id="bk-reset">Fazer nova marcação</button>';
-    body.innerHTML = html;
-    document.getElementById('bk-reset').addEventListener('click', function(){
-      state = freshState();
-      render();
-    });
-  }
-
   /* ================= shared data (Supabase) ================= */
   var SUPABASE_URL = 'https://ntymqhgdrtqxpglpfwno.supabase.co';
   var SUPABASE_KEY = 'sb_publishable_uZJR817xmLpslvS_GYLsgQ_Ih2jOXbT';
@@ -1545,38 +1013,14 @@
     ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
     : null;
 
-  /* ================= aviso por email ao barbeiro (EmailJS) =================
-     Envia um email automático de cada vez que um cliente faz uma marcação
-     online, para o caso de não confirmar por WhatsApp. Preenchido a partir de
-     uma conta gratuita em emailjs.com (Email Services > o email de destino +
-     Email Templates > o que o barbeiro recebe); os 3 valores abaixo (chave
-     pública, ID do serviço, ID do template) vêm de lá. Sem eles preenchidos,
-     isto não faz nada e a marcação continua a funcionar normalmente; é só
-     um aviso extra, nunca bloqueia a marcação em si. */
-  var EMAILJS_PUBLIC_KEY = '7xobjjPkSObhxM40I';
-  var EMAILJS_SERVICE_ID = 'service_melhxmn';
-  var EMAILJS_TEMPLATE_ID = 'template_29s3yk9';
-  if (window.emailjs && EMAILJS_PUBLIC_KEY) window.emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-  // O template no EmailJS deve usar estas variáveis: {{service}} {{barber}}
-  // {{date}} {{time}} {{client_name}} {{client_phone}}. O destinatário
-  // configura-se no próprio template do EmailJS, não aqui no código.
-  function notifyBarberByEmail(){
-    if (!window.emailjs || !EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) return;
-    var svc = SERVICES.find(function(s){ return s.id === state.service; });
-    var barber = BARBERS.find(function(b){ return b.id === state.barber; }) || { name: 'Sem preferência' };
-    window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      service: svc ? svc.name : state.service,
-      barber: barber.name,
-      date: fmtDateLabel(state.date),
-      time: state.time,
-      client_name: state.name,
-      client_phone: state.phone
-    }).catch(function(){ /* aviso por email é só um extra; nunca bloqueia a marcação */ });
-  }
-
-  var AppState = { customers: {}, bookings: [], pins: {}, timeOff: {} };
+  var AppState = { customers: {}, pins: {} };
   var DEMO_ADMIN_PHONE = '999999999'; // conta de teste, semeada no Supabase (ver schema.sql)
+
+  function escapeHtml(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
 
   function normalizePhone(s){ return (s || '').replace(/\D/g, ''); }
 
@@ -1602,11 +1046,9 @@
     return Promise.all([
       sb(supa.from('customers').select('*')),
       sb(supa.from('customer_history').select('*').order('date', { ascending: true })),
-      sb(supa.from('bookings').select('*')),
-      sb(supa.from('pins').select('*')),
-      sb(supa.from('time_off').select('*')).catch(function(){ return []; })
+      sb(supa.from('pins').select('*'))
     ]).then(function(results){
-      var customersData = results[0] || [], histData = results[1] || [], bookData = results[2] || [], pinData = results[3] || [], timeOffData = results[4] || [];
+      var customersData = results[0] || [], histData = results[1] || [], pinData = results[2] || [];
       var customers = {};
       customersData.forEach(function(c){
         customers[c.phone] = { name: c.name || '', stamps: c.stamps || 0, tier: c.tier || 'normal', history: [] };
@@ -1615,14 +1057,9 @@
         if (!customers[h.phone]) customers[h.phone] = { name: '', stamps: 0, history: [] };
         customers[h.phone].history.push({ date: h.date, service: h.service, redeemed: h.redeemed });
       });
-      var bookings = bookData.map(function(b){
-        return { id: b.id, phone: b.phone, name: b.name, service: b.service, barberId: b.barber_id, date: b.date, time: b.time, status: b.status, redeemed: b.redeemed, createdAt: b.created_at };
-      });
       var pins = {};
       pinData.forEach(function(p){ pins[p.phone] = p.pin_hash; });
-      var timeOff = {};
-      timeOffData.forEach(function(t){ (timeOff[t.barber_id] = timeOff[t.barber_id] || []).push({ id: t.id, date: t.date, time: t.time || '' }); });
-      AppState = { customers: customers, bookings: bookings, pins: pins, timeOff: timeOff };
+      AppState = { customers: customers, pins: pins };
     }).catch(function(){ /* mantém o que já estava em AppState; sem ligação de momento */ });
   }
 
@@ -1647,10 +1084,6 @@
       .then(function(){ return loadState(); })
       .then(function(){ return true; })
       .catch(function(){ return false; });
-  }
-
-  function countsForCard(serviceId){
-    return ['corte','corte-unico','combo','combo-lamina'].indexOf(serviceId) !== -1;
   }
 
   // Cartão de fidelização: a cada 10 cortes o 10º é grátis, sempre, em qualquer
@@ -1798,18 +1231,6 @@
     }
   }
 
-  function bookingRowPublicHtml(b){
-    var svc = SERVICES.find(function(s){ return s.id === b.service; });
-    var barber = BARBERS.find(function(x){ return x.id === b.barberId; });
-    return '<div class="booking-row public">' +
-      '<div class="bk-date">' + fmtDateLabel(b.date) + '</div>' +
-      '<div class="bk-row-bottom">' +
-        '<span class="bk-main"><span class="bk-client">' + (svc ? svc.name : b.service) + '</span><small>' + b.time + ' · ' + (barber ? barber.name : 'Sem preferência') + '</small></span>' +
-        '<span class="status-pill ' + b.status + '">' + statusLabel(b.status) + '</span>' +
-      '</div>' +
-    '</div>';
-  }
-
   function renderDashboardStep(el){
     var c = AppState.customers[loyState.phone];
     var tier = (c && c.tier) || 'normal';
@@ -1838,20 +1259,7 @@
         '<div class="stamp-row">' + stampsHtml + '</div>' + msg +
       '</div>';
 
-    var todayIso = isoDate(today0.getFullYear(), today0.getMonth(), today0.getDate());
-    var mine = AppState.bookings.filter(function(b){ return normalizePhone(b.phone) === loyState.phone; });
-    var upcoming = mine.filter(function(b){ return b.status === 'agendado' && b.date >= todayIso; })
-      .sort(function(a,b){ return (a.date + a.time).localeCompare(b.date + b.time); });
-    var past = mine.filter(function(b){ return !(b.status === 'agendado' && b.date >= todayIso); })
-      .sort(function(a,b){ return (b.date + b.time).localeCompare(a.date + a.time); });
-
     el.innerHTML = cardHtml +
-      '<div class="history-list"><p class="h-title">Próximas Marcações</p>' +
-        (upcoming.length ? upcoming.map(bookingRowPublicHtml).join('') : '<p class="loyalty-empty">Sem marcações agendadas.</p>') +
-      '</div>' +
-      '<div class="history-list"><p class="h-title">Marcações Anteriores</p>' +
-        (past.length ? past.map(bookingRowPublicHtml).join('') : '<p class="loyalty-empty">Ainda sem histórico.</p>') +
-      '</div>' +
       '<button type="button" class="link-reset" id="loy-logout">Sair</button>';
     document.getElementById('loy-logout').addEventListener('click', function(){ localStorage.removeItem('caravela_customer_session'); syncLoginButtons(); loyState = { step:'phone', phone:'' }; renderLoginFlow(); closeLogin(); });
   }
@@ -1868,10 +1276,10 @@
   window.addEventListener('hashchange', routeChange);
 
   /* ================= admin ================= */
-  var ADMIN_BARBERS = BARBERS.filter(function(b){ return b.id !== ''; })
-    .concat([{ id:'demo', name:'Conta de Teste', initials:'DT', phone: DEMO_ADMIN_PHONE, photo:'' }]);
-  var adminState = { barberId: null, viewDate: isoDate(today0.getFullYear(), today0.getMonth(), today0.getDate()) };
-  var adminEventsBound = false;
+  var ADMIN_BARBERS = CONTENT.barbers.map(function(b){
+    return { id: b.id, name: b.name, initials: b.initials || '', phone: b.phone || '', photo: b.photo || '' };
+  }).concat([{ id:'demo', name:'Conta de Teste', initials:'DT', phone: DEMO_ADMIN_PHONE, photo:'' }]);
+  var adminState = { barberId: null };
   var adminAuthState = { step: 'phone', phone: '', barber: null };
 
   function initAdmin(){
@@ -1880,7 +1288,6 @@
       adminState.barberId = savedId;
       document.getElementById('admin-auth').innerHTML = '';
       document.getElementById('admin-logout').hidden = false;
-      if (!adminEventsBound) { bindAdminEvents(); adminEventsBound = true; }
       loadState().then(showAdminDashboard);
       return;
     }
@@ -1963,7 +1370,6 @@
     localStorage.setItem('caravela_admin_session', adminAuthState.barber.id);
     document.getElementById('admin-auth').innerHTML = '';
     document.getElementById('admin-logout').hidden = false;
-    if (!adminEventsBound) { bindAdminEvents(); adminEventsBound = true; }
     showAdminDashboard();
   }
 
@@ -1976,378 +1382,103 @@
     renderAdminAuth();
   });
 
+  // As marcações passaram a ser feitas na BUK (barbearia-caravela.buk.pt);
+  // o painel do barbeiro serve só para confirmar um corte feito ao balcão e
+  // atualizar o Cartão Caravela do cliente por telemóvel, sem grelha nem
+  // marcações internas.
   function showAdminDashboard(){
     document.getElementById('admin-dashboard').hidden = false;
-    renderAdminDay();
+    renderConfirmScreen();
   }
 
-  function bindAdminEvents(){
-    document.getElementById('admin-prev').addEventListener('click', function(){
-      adminState.viewDate = shiftIsoDate(adminState.viewDate, -1);
-      renderAdminDay();
-    });
-    document.getElementById('admin-next').addEventListener('click', function(){
-      adminState.viewDate = shiftIsoDate(adminState.viewDate, 1);
-      renderAdminDay();
-    });
-    document.getElementById('admin-today-btn').addEventListener('click', function(){
-      adminState.viewDate = isoDate(today0.getFullYear(), today0.getMonth(), today0.getDate());
-      renderAdminDay();
-    });
-    document.getElementById('admin-add-btn').addEventListener('click', openAddBookingModal);
-    document.getElementById('admin-lookup-btn').addEventListener('click', openLookupModal);
-    document.getElementById('admin-timeoff-btn').addEventListener('click', openTimeOffModal);
-  }
-
-  function shiftIsoDate(iso, days){
-    var p = iso.split('-').map(Number);
-    var d = new Date(p[0], p[1] - 1, p[2] + days);
-    return isoDate(d.getFullYear(), d.getMonth(), d.getDate());
-  }
-
-  // Cor por categoria de serviço (o grupo em CONTENT.serviceGroups a que o
-  // serviço pertence), para os blocos da grelha se distinguirem à distância.
-  function serviceColorClass(serviceId){
-    var idx = -1;
-    CONTENT.serviceGroups.forEach(function(g, gi){
-      g.items.forEach(function(it){ if (it.id === serviceId) idx = gi; });
-    });
-    return 'svc-color-' + (idx === -1 ? 'x' : idx);
-  }
-
-  // Grelha do dia: uma coluna por barbeiro, uma linha por horário, para
-  // qualquer barbeiro logado ver a agenda de todos de relance (não só a sua).
-  function renderAdminDay(){
-    var dayIso = adminState.viewDate;
-    var todayIso = isoDate(today0.getFullYear(), today0.getMonth(), today0.getDate());
-    var label = fmtDateLabel(dayIso) + (dayIso === todayIso ? ' · Hoje' : '');
-    document.getElementById('admin-day-label').textContent = label;
-
-    var dayBookings = AppState.bookings.filter(function(b){ return b.date === dayIso && b.status !== 'cancelado'; })
-      .sort(function(a,b){ return a.time.localeCompare(b.time); });
-    var unassigned = dayBookings.filter(function(b){ return !b.barberId; });
-
-    var unassignedWrap = document.getElementById('admin-unassigned');
-    unassignedWrap.innerHTML = unassigned.length
-      ? '<div class="day-group"><h4>Por Atribuir</h4>' + unassigned.map(function(b){ return bookingRowHtml(b, true); }).join('') + '</div>'
-      : '';
-    bindBookingRowActions();
-
-    var cols = CONTENT.barbers;
-    var allSlots = SLOT_GROUPS.reduce(function(acc, g){ return acc.concat(g.slots); }, []);
-
-    var html = '<div class="admin-grid" style="grid-template-columns:4.5rem repeat(' + cols.length + ', minmax(9.5rem, 1fr));">';
-    html += '<div class="grid-cnr"></div>';
-    cols.forEach(function(b){
-      html += '<div class="grid-head">' +
-        (b.photo ? '<img src="' + b.photo + '" alt="">' : '<span class="grid-head-initials">' + escapeHtml(b.initials || '') + '</span>') +
-        '<span class="grid-head-name">' + escapeHtml(b.name) + '</span>' +
+  function renderConfirmScreen(){
+    var wrap = document.getElementById('admin-dashboard');
+    wrap.innerHTML =
+      '<div class="confirm-card">' +
+        '<p class="eyebrow">Confirmar Corte</p>' +
+        '<h3 style="margin-top:0.2rem;">Telemóvel do Cliente</h3>' +
+        '<div class="field"><input type="tel" id="am-confirm-phone" placeholder="912 345 678"></div>' +
+        '<button class="btn btn-primary" type="button" id="am-confirm-lookup" style="width:100%;">Procurar Cliente</button>' +
+        '<div id="am-confirm-result"></div>' +
       '</div>';
+    var input = document.getElementById('am-confirm-phone');
+    var go = function(){
+      var digits = normalizePhone(input.value);
+      if (digits.length < 9) { showToast('Escreve um número de telemóvel válido.'); return; }
+      loadState().then(function(){ renderClientCard(digits); });
+    };
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') go(); });
+    document.getElementById('am-confirm-lookup').addEventListener('click', go);
+  }
+
+  function renderClientCard(phone){
+    var res = document.getElementById('am-confirm-result');
+    var c = AppState.customers[phone];
+    var hasPin = !!AppState.pins[phone];
+    var tier = (c && c.tier) || 'normal';
+    var stamps = c ? (c.stamps || 0) : 0;
+    var perks = TIER_PERKS[tier] || [];
+    var cardHtml = '<div class="summary-card' + (tier !== 'normal' ? ' gold' : '') + '">' +
+      '<div class="srow"><span>Nome</span><span>' + escapeHtml((c && c.name) || 'Novo cliente') + '</span></div>' +
+      '<div class="srow"><span>Carimbos</span><span>' + stamps + ' de ' + CYCLE_LENGTH + ' (10º grátis)</span></div>' +
+      '<div class="srow"><span>Nível</span><span>' + TIER_LABELS[tier] + (perks.length ? ': ' + perks.join(' + ') : '') + '</span></div>' +
+    '</div>';
+    var nameField = c ? '' : '<div class="field" style="margin-top:1rem;"><label>Nome do Cliente</label><input type="text" id="am-confirm-name" placeholder="Nome"></div>';
+    var pinHtml = '<div class="field" style="margin-top:1rem;"><label>' + (hasPin ? 'Repor PIN (novo)' : 'Criar PIN para o cliente') + '</label>' +
+      '<input type="tel" inputmode="numeric" maxlength="4" class="pin-input" id="am-confirm-pin" placeholder="····"></div>' +
+      '<button class="btn btn-ghost" type="button" id="am-confirm-pin-go" style="width:100%;margin-bottom:1rem;">' + (hasPin ? 'Repor PIN' : 'Criar PIN') + '</button>';
+    res.innerHTML = nameField + cardHtml +
+      '<button class="btn btn-primary" type="button" id="am-confirm-done" style="width:100%;margin:1rem 0;">Confirmar Corte</button>' +
+      pinHtml +
+      '<button type="button" class="link-reset" id="am-confirm-back">‹ Procurar outro número</button>';
+    document.getElementById('am-confirm-done').addEventListener('click', function(){
+      var nameInput = document.getElementById('am-confirm-name');
+      var name = nameInput ? nameInput.value.trim() : ((c && c.name) || '');
+      confirmCut(phone, name, tier, stamps);
     });
-    allSlots.forEach(function(t){
-      html += '<div class="grid-time">' + t + '</div>';
-      cols.forEach(function(b){
-        // Normalmente só há uma marcação por barbeiro/hora (o fluxo de
-        // marcação já impede duplicados), mas se por algum motivo houver
-        // mais que uma no mesmo horário (ex.: adicionada manualmente),
-        // mostra-as todas em vez de esconder silenciosamente as outras.
-        var cellBookings = dayBookings.filter(function(x){ return x.barberId === b.id && x.time === t; });
-        if (isBarberOff(b.id, dayIso) || blockedTimesFor(b.id, dayIso).indexOf(t) !== -1) {
-          html += '<div class="grid-cell blocked">Bloqueado</div>';
-        } else if (cellBookings.length) {
-          html += '<div class="grid-cell' + (cellBookings.length > 1 ? ' has-many' : '') + '">' + cellBookings.map(function(booking){
-            var svc = SERVICES.find(function(s){ return s.id === booking.service; });
-            return '<div class="grid-entry booked ' + serviceColorClass(booking.service) +
-                (booking.status === 'concluido' ? ' is-done' : '') + '" data-grid-booking="' + booking.id + '">' +
-              '<span class="grid-cell-name">' + escapeHtml(booking.name) + '</span>' +
-              '<span class="grid-cell-svc">' + escapeHtml(svc ? svc.name : booking.service) + '</span>' +
-            '</div>';
-          }).join('') + '</div>';
-        } else {
-          html += '<div class="grid-cell"></div>';
-        }
+    document.getElementById('am-confirm-pin-go').addEventListener('click', function(){
+      var pin = document.getElementById('am-confirm-pin').value.trim();
+      if (!/^\d{4}$/.test(pin)) { showToast('O PIN tem de ter 4 números.'); return; }
+      hashPin(phone, pin).then(function(hash){
+        dbSetPin(phone, hash).then(function(ok){ if (ok) showToast('PIN guardado. Dá este PIN ao cliente.'); });
       });
     });
-    html += '</div>';
-    document.getElementById('admin-grid').innerHTML = html;
-    document.querySelectorAll('[data-grid-booking]').forEach(function(el){
-      el.addEventListener('click', function(){ openBookingDetailModal(el.getAttribute('data-grid-booking')); });
-    });
+    document.getElementById('am-confirm-back').addEventListener('click', renderConfirmScreen);
   }
 
-  function statusLabel(s){
-    return s === 'concluido' ? 'Concluído' : s === 'cancelado' ? 'Cancelado' : 'Agendado';
-  }
-
-  // Detalhe + ações de uma marcação, aberto ao clicar num bloco da grelha.
-  function openBookingDetailModal(id){
-    var b = AppState.bookings.find(function(x){ return x.id === id; });
-    if (!b) return;
-    ensureAdminModal();
-    document.getElementById('admin-modal-title').textContent = 'Marcação';
-    var svc = SERVICES.find(function(s){ return s.id === b.service; });
-    var barber = BARBERS.find(function(x){ return x.id === b.barberId; });
-    var actions = '';
-    if (b.status === 'agendado') {
-      actions = '<button class="btn btn-primary" type="button" id="am-detail-done" style="width:100%;margin-bottom:0.6rem;">Marcar como Concluído</button>' +
-        '<button class="btn btn-ghost" type="button" id="am-detail-cancel" style="width:100%;">Cancelar Marcação</button>';
-    }
-    adminModalBody.innerHTML =
-      '<div class="summary-card">' +
-        '<div class="srow"><span>Cliente</span><span>' + escapeHtml(b.name) + '</span></div>' +
-        '<div class="srow"><span>Telefone</span><span>' + escapeHtml(b.phone) + '</span></div>' +
-        '<div class="srow"><span>Serviço</span><span>' + escapeHtml(svc ? svc.name : b.service) + (b.redeemed ? ' · 10º corte grátis' : '') + '</span></div>' +
-        '<div class="srow"><span>Barbeiro</span><span>' + escapeHtml(barber ? barber.name : 'Sem preferência') + '</span></div>' +
-        '<div class="srow"><span>Hora</span><span>' + b.time + '</span></div>' +
-        '<div class="srow"><span>Estado</span><span>' + statusLabel(b.status) + '</span></div>' +
-      '</div>' + actions;
-    adminModal.hidden = false;
-    var doneBtn = document.getElementById('am-detail-done');
-    if (doneBtn) doneBtn.addEventListener('click', function(){ markBookingDone(id); closeAdminModal(); });
-    var cancelBtn = document.getElementById('am-detail-cancel');
-    if (cancelBtn) cancelBtn.addEventListener('click', function(){ markBookingStatus(id, 'cancelado'); closeAdminModal(); });
-  }
-
-  function bookingRowHtml(b, isUnassigned){
-    var svc = SERVICES.find(function(s){ return s.id === b.service; });
-    var actions = '';
-    if (b.status === 'agendado') {
-      actions = isUnassigned
-        ? '<button type="button" data-claim="' + b.id + '">Atribuir a Mim</button>'
-        : '<button type="button" data-done="' + b.id + '">Concluído</button><button type="button" class="danger" data-cancel="' + b.id + '">Cancelar</button>';
-    }
-    return '<div class="booking-row">' +
-      '<span class="bk-time">' + b.time + '</span>' +
-      '<span class="bk-main"><span class="bk-client">' + escapeHtml(b.name) + ' · ' + escapeHtml(b.phone) + '</span><small>' + (svc ? svc.name : b.service) + (b.redeemed ? ' · 10º corte grátis' : '') + '</small></span>' +
-      '<span class="status-pill ' + b.status + '">' + statusLabel(b.status) + '</span>' +
-      '<span class="bk-actions">' + actions + '</span>' +
-    '</div>';
-  }
-
-  function bindBookingRowActions(){
-    document.querySelectorAll('[data-done]').forEach(function(el){
-      el.addEventListener('click', function(){ markBookingDone(el.getAttribute('data-done')); });
-    });
-    document.querySelectorAll('[data-cancel]').forEach(function(el){
-      el.addEventListener('click', function(){ markBookingStatus(el.getAttribute('data-cancel'), 'cancelado'); });
-    });
-    document.querySelectorAll('[data-claim]').forEach(function(el){
-      el.addEventListener('click', function(){ claimBooking(el.getAttribute('data-claim')); });
-    });
-  }
-
-  function markBookingDone(id){
-    var b = AppState.bookings.find(function(x){ return x.id === id; });
-    if (!b || b.status !== 'agendado') return;
-    var phone = normalizePhone(b.phone);
-    var cust = AppState.customers[phone] || { name: b.name, stamps: 0, tier: 'normal', history: [] };
-    var newStamps = cust.stamps || 0;
-    var oldTier = cust.tier || 'normal';
-    var newTier = oldTier;
+  // Confirmar um corte soma um carimbo; ao completar o ciclo de 10 o 10º é
+  // grátis e o cliente sobe de nível (ver TIER_ORDER/nextTier acima).
+  function confirmCut(phone, name, oldTier, oldStamps){
+    var newStamps = oldStamps + 1;
     var freeCut = false;
-    var historyEntry = null;
-    // O 10º corte é sempre grátis, em qualquer nível. Completar um ciclo de
-    // 10 sobe o cliente um nível (Normal -> Dourado -> Premium); em Premium
-    // os ciclos continuam a dar o corte grátis mas o nível já não sobe mais.
-    if (countsForCard(b.service)) {
-      newStamps = newStamps + 1;
-      if (newStamps >= CYCLE_LENGTH) {
-        freeCut = true;
-        newStamps = 0;
-        newTier = nextTier(oldTier);
-      }
-      historyEntry = { phone: phone, date: b.date, service: b.service, redeemed: freeCut };
+    var newTier = oldTier;
+    if (newStamps >= CYCLE_LENGTH) {
+      freeCut = true;
+      newStamps = 0;
+      newTier = nextTier(oldTier);
     }
-    var custPayload = { phone: phone, name: b.name || cust.name, stamps: newStamps, tier: newTier };
-    sb(supa.from('bookings').update({ status: 'concluido', redeemed: freeCut }).eq('id', id))
-      .then(function(){ return sb(supa.from('customers').upsert(custPayload)); })
-      .then(function(){ return historyEntry ? sb(supa.from('customer_history').insert(historyEntry)) : null; })
+    var custPayload = { phone: phone, name: name, stamps: newStamps, tier: newTier };
+    var historyEntry = { phone: phone, date: new Date().toISOString().slice(0, 10), service: 'corte', redeemed: freeCut };
+    sb(supa.from('customers').upsert(custPayload))
+      .then(function(){ return sb(supa.from('customer_history').insert(historyEntry)); })
       .then(function(){ return loadState(); })
       .then(function(){
-        var msg = 'Marcação concluída.';
+        var msg = 'Corte confirmado.';
         if (freeCut) {
-          msg = 'Marcação concluída. 10º corte grátis aplicado!';
+          msg = 'Corte confirmado. 10º corte grátis aplicado!';
           if (newTier !== oldTier) msg += ' Este cliente subiu para ' + TIER_LABELS[newTier] + '.';
         }
         showToast(msg);
-        renderAdminDay();
+        renderClientCard(phone);
       })
       .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
   }
 
-  function markBookingStatus(id, status){
-    sb(supa.from('bookings').update({ status: status }).eq('id', id))
-      .then(function(){ return loadState(); })
-      .then(function(){ renderAdminDay(); })
-      .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
-  }
-
-  function claimBooking(id){
-    sb(supa.from('bookings').update({ barber_id: adminState.barberId }).eq('id', id))
-      .then(function(){ return loadState(); })
-      .then(function(){ showToast('Marcação atribuída.'); renderAdminDay(); })
-      .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
-  }
-
-  // time vazio ("") marca o dia inteiro como folga; um horário (ex.: "13:00")
-  // bloqueia só esse horário nesse dia, sem fechar o dia todo.
-  function addTimeOff(date, time){
-    return sb(supa.from('time_off').upsert(
-      { barber_id: adminState.barberId, date: date, time: time || '' },
-      { onConflict: 'barber_id,date,time' }
-    ))
-      .then(function(){ return loadState(); })
-      .then(function(){ showToast(time ? 'Horário bloqueado.' : 'Folga marcada.'); renderAdminDay(); return true; })
-      .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); return false; });
-  }
-
-  function removeTimeOff(id){
-    sb(supa.from('time_off').delete().eq('id', id))
-      .then(function(){ return loadState(); })
-      .then(function(){ showToast('Folga removida.'); renderAdminDay(); })
-      .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
-  }
-
-  /* ================= admin modal (add booking / lookup) ================= */
-  var adminModal, adminModalBody;
-  function ensureAdminModal(){
-    if (adminModal) return;
-    adminModal = document.createElement('div');
-    adminModal.className = 'booking-overlay';
-    adminModal.id = 'admin-modal-overlay';
-    adminModal.hidden = true;
-    adminModal.innerHTML = '<div class="booking-modal"><div class="booking-header">' +
-      '<span></span><div class="booking-title-wrap"><h3 id="admin-modal-title"></h3></div>' +
-      '<button class="icon-btn" id="admin-modal-close" type="button" aria-label="Fechar">' +
-      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>' +
-      '</div><div class="booking-body" id="admin-modal-body"></div></div>';
-    document.body.appendChild(adminModal);
-    adminModalBody = document.getElementById('admin-modal-body');
-    document.getElementById('admin-modal-close').addEventListener('click', closeAdminModal);
-    adminModal.addEventListener('click', function(e){ if (e.target === adminModal) closeAdminModal(); });
-  }
-  function closeAdminModal(){ if (adminModal) adminModal.hidden = true; }
-
-  function openLookupModal(){
-    ensureAdminModal();
-    document.getElementById('admin-modal-title').textContent = 'Cartão de Cliente';
-    adminModalBody.innerHTML = '<div class="field"><label>Telemóvel</label><input type="tel" id="am-lookup-phone" placeholder="912 345 678"></div>' +
-      '<button class="btn btn-primary" type="button" id="am-lookup-go" style="width:100%;margin-bottom:1rem;">Procurar</button>' +
-      '<div id="am-lookup-result"></div>';
-    adminModal.hidden = false;
-    document.getElementById('am-lookup-go').addEventListener('click', function(){
-      loadState().then(function(){
-        var digits = normalizePhone(document.getElementById('am-lookup-phone').value);
-        var c = AppState.customers[digits];
-        var hasPin = !!AppState.pins[digits];
-        var res = document.getElementById('am-lookup-result');
-        var tier = (c && c.tier) || 'normal';
-        var perksList = TIER_PERKS[tier] || [];
-        var estado = TIER_LABELS[tier] + (perksList.length ? ': ' + perksList.join(' + ') : '');
-        var cardHtml = c
-          ? '<div class="summary-card' + (tier !== 'normal' ? ' gold' : '') + '"><div class="srow"><span>Nome</span><span>' + escapeHtml(c.name || 'Sem nome') + '</span></div>' +
-            '<div class="srow"><span>Carimbos</span><span>' + (c.stamps || 0) + ' de ' + CYCLE_LENGTH + ' (10º grátis)</span></div>' +
-            '<div class="srow"><span>Nível</span><span>' + estado + '</span></div>' +
-            '<div class="srow"><span>Cortes registados</span><span>' + ((c.history && c.history.length) || 0) + '</span></div></div>'
-          : '<p class="loyalty-empty">Sem cortes registados para este número ainda.</p>';
-        var pinHtml = '<div class="field" style="margin-top:1rem;"><label>' + (hasPin ? 'Repor PIN (novo)' : 'Criar PIN para o cliente') + '</label>' +
-          '<input type="tel" inputmode="numeric" maxlength="4" class="pin-input" id="am-set-pin" placeholder="····"></div>' +
-          '<button class="btn btn-ghost" type="button" id="am-set-pin-go" style="width:100%;">' + (hasPin ? 'Repor PIN' : 'Criar PIN') + '</button>';
-        res.innerHTML = cardHtml + pinHtml;
-        document.getElementById('am-set-pin-go').addEventListener('click', function(){
-          var pin = document.getElementById('am-set-pin').value.trim();
-          if (!/^\d{4}$/.test(pin)) { showToast('O PIN tem de ter 4 números.'); return; }
-          hashPin(digits, pin).then(function(hash){
-            dbSetPin(digits, hash).then(function(ok){
-              if (ok) showToast('PIN guardado. Dá este PIN ao cliente.');
-            });
-          });
-        });
-      });
-    });
-  }
-
-  function openTimeOffModal(){
-    ensureAdminModal();
-    document.getElementById('admin-modal-title').textContent = 'Gerir Folgas';
-    var upcoming = (AppState.timeOff[adminState.barberId] || [])
-      .filter(function(t){ return t.date >= isoDate(today0.getFullYear(), today0.getMonth(), today0.getDate()); })
-      .sort(function(a,b){ return (a.date + (a.time || '00:00')).localeCompare(b.date + (b.time || '00:00')); });
-    var allSlots = SLOT_GROUPS.reduce(function(acc, g){ return acc.concat(g.slots); }, []);
-    adminModalBody.innerHTML =
-      '<div class="field"><label>Marcar Folga (dia inteiro)</label><input type="date" id="am-timeoff-date"></div>' +
-      '<button class="btn btn-primary" type="button" id="am-timeoff-add" style="width:100%;margin-bottom:1.5rem;">Marcar Folga</button>' +
-      '<div class="field"><label>Bloquear um Horário (ex.: hora de almoço)</label><input type="date" id="am-block-date"></div>' +
-      '<div class="field"><label>Hora</label><select id="am-block-time">' +
-        allSlots.map(function(t){ return '<option value="' + t + '">' + t + '</option>'; }).join('') +
-      '</select></div>' +
-      '<button class="btn btn-ghost" type="button" id="am-block-add" style="width:100%;margin-bottom:1rem;">Bloquear Horário</button>' +
-      (upcoming.length
-        ? upcoming.map(function(t){
-            var label = t.time ? (fmtDateLabel(t.date) + ' · ' + t.time) : (fmtDateLabel(t.date) + ' · Dia inteiro');
-            return '<div class="booking-row"><span class="bk-main"><span class="bk-client">' + label + '</span></span>' +
-              '<span class="bk-actions"><button type="button" class="danger" data-am-remove-timeoff="' + t.id + '">Remover</button></span></div>';
-          }).join('')
-        : '<p class="empty-state">Sem folgas nem horários bloqueados.</p>');
-    adminModal.hidden = false;
-    document.getElementById('am-timeoff-add').addEventListener('click', function(){
-      var date = document.getElementById('am-timeoff-date').value;
-      if (!date) { showToast('Escolhe uma data.'); return; }
-      addTimeOff(date).then(function(ok){ if (ok) openTimeOffModal(); });
-    });
-    document.getElementById('am-block-add').addEventListener('click', function(){
-      var date = document.getElementById('am-block-date').value;
-      var time = document.getElementById('am-block-time').value;
-      if (!date) { showToast('Escolhe uma data.'); return; }
-      addTimeOff(date, time).then(function(ok){ if (ok) openTimeOffModal(); });
-    });
-    adminModalBody.querySelectorAll('[data-am-remove-timeoff]').forEach(function(el){
-      el.addEventListener('click', function(){
-        removeTimeOff(el.getAttribute('data-am-remove-timeoff'));
-        openTimeOffModal();
-      });
-    });
-  }
-
-  function openAddBookingModal(){
-    ensureAdminModal();
-    document.getElementById('admin-modal-title').textContent = 'Nova Marcação';
-    adminModalBody.innerHTML =
-      '<div class="field"><label>Nome do Cliente</label><input type="text" id="am-name" placeholder="Nome"></div>' +
-      '<div class="field"><label>Telemóvel</label><input type="tel" id="am-phone" placeholder="912 345 678"></div>' +
-      '<div class="field"><label>Serviço</label></div>' +
-      '<div id="am-services">' + SERVICES.map(function(s){
-        return '<button type="button" class="pick-row" data-am-service="' + s.id + '">' +
-          '<span class="row-main">' + s.name + '</span><span class="row-price">' + priceText(s) + '</span></button>';
-      }).join('') + '</div>' +
-      '<div class="field" style="margin-top:1rem;"><label>Data</label><input type="date" id="am-date"></div>' +
-      '<div class="field"><label>Hora</label><input type="time" id="am-time"></div>' +
-      '<button class="btn btn-primary" type="button" id="am-save" style="width:100%;">Guardar Marcação</button>';
-    var chosenService = null;
-    adminModalBody.querySelectorAll('[data-am-service]').forEach(function(el){
-      el.addEventListener('click', function(){
-        chosenService = el.getAttribute('data-am-service');
-        adminModalBody.querySelectorAll('[data-am-service]').forEach(function(x){ x.classList.remove('selected'); });
-        el.classList.add('selected');
-      });
-    });
-    adminModal.hidden = false;
-    document.getElementById('am-save').addEventListener('click', function(){
-      var name = document.getElementById('am-name').value.trim();
-      var phone = document.getElementById('am-phone').value.trim();
-      var date = document.getElementById('am-date').value;
-      var time = document.getElementById('am-time').value;
-      if (!name || !phone || !chosenService || !date || !time) { showToast('Preenche todos os campos.'); return; }
-      var id = 'bk_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
-      sb(supa.from('bookings').insert({ id: id, phone: phone, name: name, service: chosenService, barber_id: adminState.barberId, date: date, time: time, status: 'agendado' }))
-        .then(function(){ return loadState(); })
-        .then(function(){ showToast('Marcação guardada.'); closeAdminModal(); renderAdminDay(); })
-        .catch(function(){ showToast('Não foi possível gravar agora. Tenta novamente.'); });
-    });
-  }
-
   /* ---------- render do conteúdo editável (serviços + equipa + horário) ---------- */
   var DIAG_ARROW = '<svg class="diag" viewBox="0 0 19.0049 19" fill="currentColor" aria-hidden="true"><path d="M19.0049 1.18457H19.002V18.3564H17.8047V2.21973L0.84668 19L0 18.1621L17.1582 1.18457H0.453125V0H19.0049V1.18457Z"/></svg>';
+  // Marcações passaram a ser feitas na BUK; todos os botões de "Marcar" do
+  // site reencaminham para lá em vez de abrir um fluxo de marcação próprio.
+  var BUK_URL = 'https://barbearia-caravela.buk.pt/';
 
   function priceLabelFor(it){
     return (it.price == null) ? (it.priceLabel || 'Sob orçamento') : (it.price + ' €');
@@ -2375,14 +1506,11 @@
           '<span class="svc-index">' + (i < 9 ? '0' : '') + (i + 1) + '</span>' +
           '<h3 class="svc-title">' + escapeHtml(g.title) + '</h3>' +
           '<ul class="svc-list">' + rows + '</ul>' +
-          '<button class="btn btn-ghost btn-sm svc-card-cta" type="button" data-open-booking>Marcar</button>' +
+          '<a class="btn btn-ghost btn-sm svc-card-cta" href="' + BUK_URL + '" target="_blank" rel="noopener">Marcar</a>' +
         '</article>'
       );
     });
     track.innerHTML = cards.join('');
-    track.querySelectorAll('[data-open-booking]').forEach(function(el){
-      el.addEventListener('click', openBooking);
-    });
   }
 
   // Constrói a passadeira de Os Barbeiros a partir do CONTENT.
@@ -2411,13 +1539,10 @@
     cards.push(
       '<article class="team-card team-tail">' +
         '<p class="team-tail-text">Marca com quem quiseres, ou sem preferência, quem estiver livre.</p>' +
-        '<button class="btn btn-primary" type="button" data-open-booking>Marcar Agora</button>' +
+        '<a class="btn btn-primary" href="' + BUK_URL + '" target="_blank" rel="noopener">Marcar Agora</a>' +
       '</article>'
     );
     track.innerHTML = cards.join('');
-    track.querySelectorAll('[data-open-booking]').forEach(function(el){
-      el.addEventListener('click', openBooking);
-    });
   }
 
   function renderMenuGroups(){
@@ -2454,9 +1579,6 @@
   renderHoursTable();
   loadState();
 
-  // Botão de marcação da secção Marcar (Contact).
-  var contactBook = document.getElementById('open-booking-contact');
-  if (contactBook) contactBook.addEventListener('click', openBooking);
   // Botão "Ver o Meu Cartão" na secção que explica os níveis do Cartão Caravela.
   var explainLogin = document.getElementById('open-login-explain');
   if (explainLogin) explainLogin.addEventListener('click', openLogin);
@@ -2464,9 +1586,7 @@
   // Deixa a coreografia de scroll saber quando um modal está aberto (para pausar cenas).
   window.CaravelaUI = {
     isModalOpen: function(){
-      return !overlay.hidden ||
-        !document.getElementById('login-overlay').hidden ||
-        (document.getElementById('admin-modal-overlay') && !document.getElementById('admin-modal-overlay').hidden);
+      return !document.getElementById('login-overlay').hidden;
     }
   };
 })();
